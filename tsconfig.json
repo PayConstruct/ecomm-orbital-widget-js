@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node16",
+    "module": "Node16",
+    "target": "ESNext",
+    "alwaysStrict": false,
+    "noImplicitAny": true,
+    "noEmit": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}

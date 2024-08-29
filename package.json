@@ -1,0 +1,30 @@
+{
+  "name": "@payconstruct/orbital-appsync-utils",
+  "version": "1.0.4",
+  "main": "src/index.ts",
+  "repository": "https://github.com/PayConstruct/orbital-appsync-utils.git",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint",
+    "build": "tsc --noEmit",
+    "release": "auto shipit --base-branch=dev"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.4",
+    "@types/node": "^18.0.3",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^28.1.2",
+    "prettier": "^2.7.1",
+    "ts-jest": "^29.0.5",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "auto": "^10.34.1"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
+}
