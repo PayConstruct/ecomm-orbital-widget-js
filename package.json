@@ -27,6 +27,10 @@
     "lint": "eslint . --ext js,ts --cache --fix"
   },
   "devDependencies": {
+    "@auto-it/conventional-commits": "^11.2.1",
+    "@auto-it/git-tag": "^11.2.1",
+    "@auto-it/released": "^11.2.1",
+    "@auto-it/s3": "^11.2.1",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-replace": "^5.0.7",
     "@rollup/plugin-terser": "^0.4.4",

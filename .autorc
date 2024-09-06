@@ -1,0 +1,24 @@
+{
+  "plugins": [
+    "git-tag",
+    "conventional-commits",
+    "released",
+    [
+      "s3",
+      {
+        "bucket": "widgets.getorbital.io",
+        "region": "ap-southeast-1",
+        "files": [
+          [
+            "dist/index.umd.min.js",
+            "$VERSION/index.js"
+          ]
+        ]
+      }
+    ]
+  ],
+  "owner": "@payconstruct",
+  "repo": "https://github.com/PayConstruct/ecom-orbital-widget.git",
+  "name": "github-actions[bot]",
+  "email": "github-actions[bot]@users.noreply.github.com"
+}
