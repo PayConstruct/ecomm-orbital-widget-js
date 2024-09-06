@@ -1,0 +1,43 @@
+name: On Push Hook
+
+on:
+  push:
+    branches:
+      - '*'
+      - '*/*'
+      - '**'
+      - '!prd'
+      - '!tst'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  dependency_vulnerability_audit:
+    uses: PayConstruct/github-actions-workflows/.github/workflows/dependency-vulnerability-audit.yml@main
+  validate-code:
+    needs: [dependency_vulnerability_audit]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Use .npmrc
+        uses: bduff9/use-npmrc@v1.1
+        with:
+          dot-npmrc: ${{ secrets.ORG_NPMRC }}
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: prettier
+        run: yarn prettier
