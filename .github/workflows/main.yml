@@ -107,7 +107,7 @@ jobs:
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"
           if [ "$BRANCH_NAME" == "tst" ]; then
             yarn auto canary --force 
-            yarn auto create-labels    
           else 
             yarn auto shipit --base-branch=prd          
           fi
+          yarn version --patch
