@@ -95,21 +95,18 @@ jobs:
         run: |
           yarn build
 
-      # - name: Update CDN
-      #   run: |
-      #     yarn upload
+      - name: Update CDN
+        run: |
+          yarn upload
 
       - name: Update version and publish
         env:
-          GH_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-          NPM_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
-          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
         run: |
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"
           if [ "$BRANCH_NAME" == "tst" ]; then
-            yarn auto canary
+            yarn auto canary --force
           else 
             yarn auto shipit --base-branch=prd          
           fi
