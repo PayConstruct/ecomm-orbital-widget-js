@@ -10,3 +10,7 @@ dist
 .vim
 .vscode/
 .env
+
+# Optional npm cache directory
+.npm
+.npmrc
