@@ -8,13 +8,17 @@
   "types": "lib/index.d.ts",
   "typings": "lib/index.d.ts",
   "repository": "https://github.com/PayConstruct/ecom-orbital-widget.git",
-  "author": "PayConstruct",
+  "author": "<neilzon.calosa@getorbital.com>",
+  "homepage": "https://github.com/PayConstruct/ecom-orbital-widget.git#readme",
   "license": "UNLICENSED",
   "keywords": [
     "Orbital",
     "Orbital.js",
     "OrbitalWidgets"
   ],
+  "engines": {
+    "node": ">=18.20.4"
+  },
   "scripts": {
     "clean": "rimraf dist",
     "build": "yarn clean && yarn rollup -c --bundleConfigAsCjs",
