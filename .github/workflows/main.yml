@@ -30,6 +30,9 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@payperform'
 
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
       - name: Cache node modules
         uses: actions/cache@v4
         with:
@@ -38,8 +41,8 @@ jobs:
           restore-keys: |
             yarn-deps-${{ hashFiles('yarn.lock') }}
 
-      # - name: prettier
-      #   run: yarn prettier
+      - name: prettier
+        run: yarn prettier
 
       - name: Determine Role to use
         id: checkroles
@@ -64,6 +67,16 @@ jobs:
           role-to-assume: ${{ steps.checkroles.outputs.role-to-use }}
           role-session-name: OIDCSession
 
+      - name: Use .npmrc
+        uses: bduff9/use-npmrc@v1.2
+        with:
+          dot-npmrc: ${{ secrets.ORG_NPMRC }}
+
+      - name: Set Git Identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Set base url
         id: setBaseUrl
         run: |
@@ -76,21 +89,15 @@ jobs:
           BASE_URL_TST: ${{ secrets.BASE_URL_TST }}
           BASE_URL: ${{ secrets.BASE_URL }}
 
-      - name: Use .npmrc
-        uses: bduff9/use-npmrc@v1.2
-        with:
-          dot-npmrc: ${{ secrets.ORG_NPMRC }}
-
-      - name: Set Git Identity
+      - name: Build project
+        env:
+          BASE_URL: ${{ steps.setBaseUrl.outputs.base-url }}
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          yarn build
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Build the project
-        run: yarn build
+      - name: Update CDN
+        run: |
+          yarn upload
 
       - name: Update version and publish
         env:

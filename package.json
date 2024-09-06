@@ -1,6 +1,6 @@
 {
   "name": "@payconstruct/orbital-widget",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "description": "Orbital Widgets for fast and seamless payment processing",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
@@ -27,7 +27,9 @@
     "lint": "eslint . --ext js,ts --cache --fix"
   },
   "devDependencies": {
+    "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-replace": "^5.0.7",
+    "@rollup/plugin-terser": "^0.4.4",
     "@tsconfig/node18": "^18.2.4",
     "@types/jest": "^29.5.12",
     "@types/node": "^22.5.1",
@@ -38,8 +40,6 @@
     "prettier": "^3.3.3",
     "rimraf": "2.6.2",
     "rollup": "^4.21.2",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.36.0",
     "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.1",

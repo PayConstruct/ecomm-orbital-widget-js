@@ -10,5 +10,15 @@
   <body>
     <div id="orbital" class="iframe-container"></div>
   </body>
+  <!-- ! IMPORTANT: Need to revisit and remove this way of injecting process env for CDN example -->
+  <!-- ? Possible need to revisit and find a way to dynamically offer these configs?  -->
+  <!-- * Related ticket: https://getorbital.atlassian.net/browse/PMCR-1393  -->
+  <!-- * Inject environment variables here for testing CDN example only-->
+  <script>
+    window.env = {
+      API_URL: 'https://hpp.tst.getorbital.io/invoice/widgets',
+      API_KEY: '50f46ee3-231e-4262-8c42-c5ba87b1e014',
+    }
+  </script>
   <script src="./index.js"></script>
 </html>

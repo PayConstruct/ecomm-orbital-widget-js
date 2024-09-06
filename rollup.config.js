@@ -1,8 +1,8 @@
-import babel from 'rollup-plugin-babel'
+import babel from '@rollup/plugin-babel'
 import ts from 'rollup-plugin-typescript2'
 import replace from '@rollup/plugin-replace'
 import pkg from './package.json'
-import { terser } from 'rollup-plugin-terser'
+import terser from '@rollup/plugin-terser'
 import dotenv from 'dotenv'
 
 dotenv.config()

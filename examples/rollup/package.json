@@ -33,6 +33,7 @@
     "rollup-plugin-babel": "^4.3.3"
   },
   "dependencies": {
+    "@payconstruct/orbital-widget": "1.0.5--canary.3.2cb5219.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2"
   }
