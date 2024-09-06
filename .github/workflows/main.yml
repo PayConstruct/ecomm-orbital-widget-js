@@ -1,22 +1,21 @@
-name: Publish Package
+name: Deploy package to GitHub package registry
 
 on:
   push:
-    branches:
-      - 'prd'
-      - 'tst'
+    branches: [prd, tst]
 
 permissions:
   id-token: write
   contents: read
 
 jobs:
+  dependency_vulnerability_audit:
+    uses: PayConstruct/github-actions-workflows/.github/workflows/dependency-vulnerability-audit.yml@main
+
   release:
-    # The operating system it will run on
+    needs: [dependency_vulnerability_audit]
     runs-on: ubuntu-latest
-    # This check needs to be in place to prevent a publish loop with auto and github actions
-    if: ${{ !contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')}}
-    # The list of steps that the action will go through
+    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,11 +30,8 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@payperform'
 
-      - name: Set Git Identity
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git fetch --unshallow --tags
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
       - name: Cache node modules
         uses: actions/cache@v4
@@ -45,8 +41,8 @@ jobs:
           restore-keys: |
             yarn-deps-${{ hashFiles('yarn.lock') }}
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: prettier
+        run: yarn prettier
 
       - name: Determine Role to use
         id: checkroles
@@ -75,6 +71,11 @@ jobs:
         uses: bduff9/use-npmrc@v1.2
         with:
           dot-npmrc: ${{ secrets.ORG_NPMRC }}
+
+      - name: Set Git Identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Set base url
         id: setBaseUrl
@@ -105,7 +106,7 @@ jobs:
         run: |
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"
           if [ "$BRANCH_NAME" == "tst" ]; then
-            yarn release
+            yarn auto canary --force
           else 
             yarn auto shipit --base-branch=prd          
           fi
