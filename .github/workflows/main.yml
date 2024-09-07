@@ -89,6 +89,9 @@ jobs:
           BASE_URL_TST: ${{ secrets.BASE_URL_TST }}
           BASE_URL: ${{ secrets.BASE_URL }}
 
+      - name: Run tests
+        run: yarn test
+
       - name: Build project
         env:
           BASE_URL: ${{ steps.setBaseUrl.outputs.base-url }}
