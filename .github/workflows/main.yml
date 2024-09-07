@@ -90,7 +90,7 @@ jobs:
           BASE_URL: ${{ secrets.BASE_URL }}
 
       - name: Run tests
-        run: yarn test
+        run: yarn test:coverage
 
       - name: Build project
         env:
