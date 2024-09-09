@@ -18,8 +18,8 @@ jobs:
     secrets:
       deploy_token: ${{ secrets.DEPLOY_TOKEN }}
       org_npmrc: ${{ secrets.ORG_NPMRC }}
-      base_url_tst: ${{ secrets.BASE_URL_TST }}
-      base_url: ${{ secrets.BASE_URL }}
+      # base_url_tst: ${{ secrets.BASE_URL_TST }}
+      # base_url: ${{ secrets.BASE_URL }}
 
   # release:
   #   needs: [dependency_vulnerability_audit]

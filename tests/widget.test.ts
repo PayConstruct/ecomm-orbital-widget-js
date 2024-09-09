@@ -153,9 +153,6 @@ describe('cleanup function', () => {
 
     // Check if disconnect was called
     expect(mockObserverInstance.disconnect).toHaveBeenCalled()
-
-    // Since we can't access `containers` directly, we rely on MutationObserver calls
-    // Ensure the observer was removed (i.e., `disconnect` was called)
   })
 
   it('should do nothing if the container does not exist in the map', () => {
