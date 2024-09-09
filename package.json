@@ -28,7 +28,6 @@
   },
   "devDependencies": {
     "@auto-it/npm": "^11.2.1",
-    "@auto-it/s3": "^11.2.1",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-replace": "^5.0.7",
     "@rollup/plugin-terser": "^0.4.4",
