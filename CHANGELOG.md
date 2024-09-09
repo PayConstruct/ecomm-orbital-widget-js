@@ -1,3 +1,20 @@
+# v3.1.0 (Mon Sep 09 2024)
+
+#### 🚀 Enhancement
+
+- build: update deployment configs [#20](https://github.com/PayConstruct/ecom-orbital-widget/pull/20) ([@NeilzonC](https://github.com/NeilzonC))
+
+#### 🐛 Bug Fix
+
+- build: add next to brnaches [#19](https://github.com/PayConstruct/ecom-orbital-widget/pull/19) ([@NeilzonC](https://github.com/NeilzonC))
+- build: update deployment config [#18](https://github.com/PayConstruct/ecom-orbital-widget/pull/18) ([@NeilzonC](https://github.com/NeilzonC))
+
+#### Authors: 1
+
+- Neilzon ([@NeilzonC](https://github.com/NeilzonC))
+
+---
+
 # v3.0.0 (Mon Sep 09 2024)
 
 #### 💥 Breaking Change
