@@ -1,0 +1,7 @@
+{
+  "canary": {
+    "target": "pr-body",
+    "message": "string",
+    "force": true
+  }
+}
