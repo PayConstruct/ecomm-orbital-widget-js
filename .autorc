@@ -4,10 +4,16 @@
     "message": "string",
     "force": true
   },
+  "next": {
+    "message": "string",
+    "force": true
+  },
   "versionBranches": "version-",
   "baseBranch": "prd",
   "prereleaseBranches": [
     "tst"
   ],
-  "plugins": []
+  "plugins": [
+    "npm"
+  ]
 }
