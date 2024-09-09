@@ -3,5 +3,10 @@
     "target": "pr-body",
     "message": "string",
     "force": true
-  }
+  },
+  "versionBranches": "major-",
+  "baseBranch": "prd",
+  "prereleaseBranches": [
+    "tst"
+  ]
 }
