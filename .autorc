@@ -1,13 +1,6 @@
 {
-  "next": {
-    "message": "string",
-    "force": true
-  },
   "versionBranches": "version-",
   "baseBranch": "prd",
-  "prereleaseBranches": [
-    "tst"
-  ],
   "plugins": [
     "npm"
   ]
