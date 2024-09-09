@@ -1,3 +1,14 @@
+# v3.0.0 (Mon Sep 09 2024)
+
+#### 💥 Breaking Change
+
+
+#### Authors: 1
+
+- Neilzon ([@NeilzonC](https://github.com/NeilzonC))
+
+---
+
 # v2.1.0 (Mon Sep 09 2024)
 
 #### 🚀 Enhancement
