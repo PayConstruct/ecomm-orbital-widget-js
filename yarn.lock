@@ -61,7 +61,7 @@
     typescript-memoize "^1.0.0-alpha.3"
     url-join "^4.0.0"
 
-"@auto-it/npm@11.2.1":
+"@auto-it/npm@11.2.1", "@auto-it/npm@^11.2.1":
   version "11.2.1"
   resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-11.2.1.tgz#dda07344befe4aa9660af410ea5f923de65cefbd"
   integrity sha512-rJXfodzQ9BxeM0xbLfoVgp8m07YXoTcrr8fPLPhlBlYK7lDZazE7AS7r8KpolNMEi0jUBXg7c6UKOVBpMzFUPA==
@@ -100,6 +100,17 @@
     fp-ts "^2.5.3"
     io-ts "^2.1.2"
     tslib "2.1.0"
+
+"@auto-it/s3@^11.2.1":
+  version "11.2.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/s3/-/s3-11.2.1.tgz#d4708e169414da18bfa17c8f5fb5808689db2c1a"
+  integrity sha512-Olfgs2evZ1cDJRjx9p1njHQvhrqOArzGGJ+0QpoXo3G8D76oCQ6lX7CqEM/0OxEKPvZVCjfOg0aP36Lnp4NuKw==
+  dependencies:
+    "@auto-it/core" "11.2.1"
+    aws-cli-js "^2.0.6"
+    fp-ts "^2.5.3"
+    io-ts "^2.1.2"
+    tslib "^2.0.0"
 
 "@auto-it/version-file@11.2.1":
   version "11.2.1"
@@ -2635,6 +2646,13 @@ await-to-js@^3.0.0:
   resolved "https://registry.yarnpkg.com/await-to-js/-/await-to-js-3.0.0.tgz#70929994185616f4675a91af6167eb61cc92868f"
   integrity sha512-zJAaP9zxTcvTHRlejau3ZOY4V7SRpiByf3/dxx2uyKxxor19tpmpV2QRsTKikckwhaPmr2dVpxxMr7jOCYVp5g==
 
+aws-cli-js@^2.0.6:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/aws-cli-js/-/aws-cli-js-2.2.3.tgz#09b9e296af1bbdc3b86d67e18c798665357cb8e4"
+  integrity sha512-QHnL5VXtbXbcZK9xlvIUGr+iua5cgBXqEG0wXRoJ/DCjdG7M2jq0nSn2bV5rzuR7nOFyWFMwgLmaDXiTBSl7wg==
+  dependencies:
+    nodeify-ts "1.0.6"
+
 babel-jest@^29.7.0:
   version "29.7.0"
   resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-29.7.0.tgz#f4369919225b684c56085998ac63dbd05be020d5"
@@ -4760,6 +4778,11 @@ node-releases@^2.0.18:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.18.tgz#f010e8d35e2fe8d6b2944f03f70213ecedc4ca3f"
   integrity sha512-d9VeXT4SJ7ZeOqGX6R5EM022wpL+eWPooLI+5UpWn2jCT1aosUQEhQP214x33Wkwx3JQMvIm+tIoVOdodFS40g==
 
+nodeify-ts@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/nodeify-ts/-/nodeify-ts-1.0.6.tgz#ceef172c4fad1a45a1ae60a31c7e295150b5e221"
+  integrity sha512-jq+8sqVG1aLqy5maMTceL8NUJ1CvarWztlxvrYh3G0aao9BsVeoVmVedUnrUSBLetP7oLIAJrPrw4+iIo7v3GA==
+
 normalize-path@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-3.0.0.tgz#0dcd69ff23a1c9b11fd0978316644a0388216a65"
@@ -5650,7 +5673,7 @@ tslib@2.1.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
   integrity sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
 
-tslib@^2, tslib@^2.5.0, tslib@^2.6.2:
+tslib@^2, tslib@^2.0.0, tslib@^2.5.0, tslib@^2.6.2:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.7.0.tgz#d9b40c5c40ab59e8738f297df3087bf1a2690c01"
   integrity sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==
