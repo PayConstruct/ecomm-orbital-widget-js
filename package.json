@@ -19,7 +19,7 @@
     "clean": "rimraf dist",
     "build": "yarn clean && yarn rollup -c --bundleConfigAsCjs",
     "upload": "node upload-to-s3.js",
-    "release": "auto shipit --base-branch=tst",
+    "release": "auto shipit",
     "prettier": "prettier --check \"./**/{*.js,*.ts,*.tsx}\"",
     "prettier:fix": "prettier --list-different \"./**/{*.js,*.ts,*.tsx}\" --write",
     "test:coverage": "jest --coverage",
