@@ -5,7 +5,6 @@
     "force": true
   },
   "versionBranches": "major-",
-  "baseBranch": "prd",
   "prereleaseBranches": [
     "tst"
   ]
