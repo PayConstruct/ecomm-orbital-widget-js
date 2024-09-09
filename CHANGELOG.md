@@ -1,3 +1,19 @@
+# v2.1.0 (Mon Sep 09 2024)
+
+#### 🚀 Enhancement
+
+- build: add plugins [#14](https://github.com/PayConstruct/ecom-orbital-widget/pull/14) ([@NeilzonC](https://github.com/NeilzonC))
+
+#### 🐛 Bug Fix
+
+- build: add plugins [#15](https://github.com/PayConstruct/ecom-orbital-widget/pull/15) ([@NeilzonC](https://github.com/NeilzonC))
+
+#### Authors: 1
+
+- Neilzon ([@NeilzonC](https://github.com/NeilzonC))
+
+---
+
 # v2.0.0 (Mon Sep 09 2024)
 
 #### 💥 Breaking Change
