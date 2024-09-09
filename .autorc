@@ -1,9 +1,4 @@
 {
-  "canary": {
-    "target": "pr-body",
-    "message": "string",
-    "force": true
-  },
   "next": {
     "message": "string",
     "force": true
