@@ -1,0 +1,40 @@
+{
+  "name": "@orbital-widget/rollup",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "rimraf dist && rollup -c && node server -e html,js,css",
+    "start": "nodemon --exec 'npm run build'"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/runtime": "^7.7.7",
+    "@rollup/plugin-commonjs": "^11.0.0",
+    "@rollup/plugin-node-resolve": "^6.0.0",
+    "@rollup/plugin-replace": "^5.0.7",
+    "nodemon": "^3.1.4",
+    "reload": "^3.3.0",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.27.14",
+    "rollup-plugin-babel": "^4.3.3"
+  },
+  "dependencies": {
+    "@payconstruct/orbital-widget": "1.0.5--canary.3.2cb5219.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}

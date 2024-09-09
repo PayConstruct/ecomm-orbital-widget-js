@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Embedded Payment Page - CDN</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://s3.ap-southeast-1.amazonaws.com/widgets.getorbital.io/index.js" async></script>
+  </head>
+  <body>
+    <div id="orbital" class="iframe-container"></div>
+  </body>
+  <!-- ! IMPORTANT: Need to revisit and remove this way of injecting process env for CDN example -->
+  <!-- ? Possible need to revisit and find a way to dynamically offer these configs?  -->
+  <!-- * Related ticket: https://getorbital.atlassian.net/browse/PMCR-1393  -->
+  <!-- * Inject environment variables here for testing CDN example only-->
+  <script>
+    window.env = {
+      API_URL: '',
+      API_KEY: '',
+    }
+  </script>
+  <script src="./index.js"></script>
+</html>

@@ -1,0 +1,55 @@
+name: On Push Hook
+
+on:
+  push:
+    branches:
+      - '*'
+      - '*/*'
+      - '**'
+      - '!prd'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  validate-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@payperform'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: yarn-deps-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-deps-${{ hashFiles('yarn.lock') }}
+
+      - name: Use .npmrc
+        uses: bduff9/use-npmrc@v1.1
+        with:
+          dot-npmrc: ${{ secrets.ORG_NPMRC }}
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: prettier
+        run: yarn prettier
+
+      - name: Run tests
+        run: yarn test:coverage
