@@ -41,7 +41,7 @@ function renderWidget(element: HTMLElement) {
 
   const iframe = document.createElement('iframe')
   iframe.src = `${process.env.BASE_URL}/invoice/widgets?hppEncodedId=${signature}`
-  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin')
+  iframe.setAttribute('sandbox', '')
   iframe.setAttribute('referrerpolicy', 'no-referrer')
   element.innerHTML = ''
   element.appendChild(iframe)

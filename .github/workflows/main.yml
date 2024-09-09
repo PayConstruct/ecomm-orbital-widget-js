@@ -12,14 +12,14 @@ jobs:
   dependency_vulnerability_audit:
     uses: PayConstruct/github-actions-workflows/.github/workflows/dependency-vulnerability-audit.yml@main
   release:
-    uses: PayConstruct/github-actions-workflows/.github/workflows/release-npm-registry-package.yml@feat/audit-mfe # Reference your reusable workflow here
+    uses: PayConstruct/github-actions-workflows/.github/workflows/release-npm-registry-package.yml@main
     with:
-      branch_name: ${{ github.ref_name }} # Pass the branch name from the current context
+      branch_name: ${{ github.ref_name }}
     secrets:
       deploy_token: ${{ secrets.DEPLOY_TOKEN }}
       org_npmrc: ${{ secrets.ORG_NPMRC }}
-      # base_url_tst: ${{ secrets.BASE_URL_TST }}
-      # base_url: ${{ secrets.BASE_URL }}
+      base_url_tst: ${{ secrets.BASE_URL_TST }}
+      base_url: ${{ secrets.BASE_URL }}
 
   # release:
   #   needs: [dependency_vulnerability_audit]

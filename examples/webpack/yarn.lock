@@ -1618,10 +1618,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@payconstruct/orbital-widget@1.0.6--canary.3.997b68b.0":
-  version "1.0.6--canary.3.997b68b.0"
-  resolved "https://npm.pkg.github.com/download/@payconstruct/orbital-widget/1.0.6--canary.3.997b68b.0/e9eb352b65e11eb5b95754455a520f14b5d3d427#e9eb352b65e11eb5b95754455a520f14b5d3d427"
-  integrity sha512-Z2LB/LgDkfVfk8mpgkE9zt7zjTjmIzagi9qOlUf76AgImEb2fVUjYprLBdVqkZd8yPTKVOvKSpk2U35u0k+2Cw==
+"@payconstruct/orbital-widget@1.0.6--canary.3.db6196d.0":
+  version "1.0.6--canary.3.db6196d.0"
+  resolved "https://npm.pkg.github.com/download/@payconstruct/orbital-widget/1.0.6--canary.3.db6196d.0/551c7de37923eeb391abcfa0b08d0b1a54e36262#551c7de37923eeb391abcfa0b08d0b1a54e36262"
+  integrity sha512-sIkAnzOUpVek+enQJ0QXb03jW1o+pCNYEMFNTfWLKod8GZqO7BMPnYBtRXxRQiNl87UVpaD868X/6Zlclr6vSg==
   dependencies:
     "@aws-sdk/client-s3" "^3.637.0"
     "@aws-sdk/lib-storage" "^3.637.0"
