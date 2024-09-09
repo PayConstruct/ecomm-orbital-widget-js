@@ -4,8 +4,8 @@
     "message": "string",
     "force": true
   },
-  "versionBranches": "major-",
-  "baseBranch": "prd",
+  "versionBranches": "version-",
+  "baseBranch": "tst",
   "prereleaseBranches": [
     "tst"
   ]
