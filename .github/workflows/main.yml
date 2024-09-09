@@ -2,7 +2,7 @@ name: Deploy package to GitHub package registry
 
 on:
   push:
-    branches: [prd, tst]
+    branches: [prd, tst, next]
 
 permissions:
   id-token: write
