@@ -8,5 +8,6 @@
   "baseBranch": "prd",
   "prereleaseBranches": [
     "tst"
-  ]
+  ],
+  "plugins": []
 }
