@@ -2,6 +2,17 @@
   "versionBranches": "version-",
   "baseBranch": "prd",
   "plugins": [
-    "npm"
+    "npm",
+    "s3",
+    {
+      "bucket": "widgets.getorbital.io",
+      "region": "ap-southeast-1",
+      "files": [
+        [
+          "dist/index.umd.min.js",
+          "index.js"
+        ]
+      ]
+    }
   ]
 }
