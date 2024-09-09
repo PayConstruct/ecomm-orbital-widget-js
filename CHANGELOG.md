@@ -1,3 +1,17 @@
+# v3.1.1 (Mon Sep 09 2024)
+
+#### 🐛 Bug Fix
+
+- fix: sripts issues [#23](https://github.com/PayConstruct/ecom-orbital-widget/pull/23) ([@NeilzonC](https://github.com/NeilzonC))
+- fix: scripts issues [#24](https://github.com/PayConstruct/ecom-orbital-widget/pull/24) ([@NeilzonC](https://github.com/NeilzonC))
+- build: update autorc [#22](https://github.com/PayConstruct/ecom-orbital-widget/pull/22) ([@NeilzonC](https://github.com/NeilzonC))
+
+#### Authors: 1
+
+- Neilzon ([@NeilzonC](https://github.com/NeilzonC))
+
+---
+
 # v3.1.0 (Mon Sep 09 2024)
 
 #### 🚀 Enhancement
