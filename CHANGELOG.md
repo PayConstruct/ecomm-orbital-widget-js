@@ -1,3 +1,18 @@
+# v4.1.0 (Thu Sep 12 2024)
+
+#### 🚀 Enhancement
+
+
+#### 🐛 Bug Fix
+
+- feat: add support for react [#27](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/27) ([@NeilzonC](https://github.com/NeilzonC))
+
+#### Authors: 1
+
+- Neilzon ([@NeilzonC](https://github.com/NeilzonC))
+
+---
+
 # v4.0.0 (Thu Sep 12 2024)
 
 #### 💥 Breaking Change
