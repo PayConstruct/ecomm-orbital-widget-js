@@ -6,17 +6,14 @@ describe('init function', () => {
   let mockWarn: jest.SpyInstance
 
   beforeEach(() => {
-    // Mock document.getElementById
     mockGetElementById = jest.spyOn(document, 'getElementById')
 
-    // Mock MutationObserver
     mockMutationObserver = jest.fn(() => ({
       observe: jest.fn(),
       disconnect: jest.fn(),
     }))
     ;(global as any).MutationObserver = mockMutationObserver
 
-    // Mock console.warn
     mockWarn = jest.spyOn(console, 'warn').mockImplementation()
   })
 
@@ -31,7 +28,6 @@ describe('init function', () => {
 
     mockGetElementById.mockReturnValue(mockContainer)
 
-    // Call init function
     init({ container: 'orbital-container' })
 
     expect(mockGetElementById).toHaveBeenCalledWith('orbital-container')
@@ -99,7 +95,6 @@ describe('init function', () => {
 
     expect(mockMutationObserverInstance.observe).toHaveBeenCalled()
 
-    // Simulate a mutation where the signature attribute changes
     const mockMutation = {
       type: 'attributes',
       attributeName: 'signature',
@@ -111,6 +106,24 @@ describe('init function', () => {
 
     expect(mockContainer.getAttribute).toHaveBeenCalledWith('signature')
   })
+
+  it('should handle React containers (HTMLElement)', () => {
+    const mockContainer = document.createElement('div')
+    mockContainer.id = 'react-container'
+    mockContainer.getAttribute = jest.fn().mockReturnValue('mock-signature')
+
+    init({ container: mockContainer })
+
+    expect(mockMutationObserver).toHaveBeenCalled()
+    expect(mockContainer.getAttribute).toHaveBeenCalledWith('signature')
+  })
+
+  it('should warn when container is neither a string nor an HTMLElement', () => {
+    // @ts-ignore
+    init({ container: 123 })
+
+    expect(mockWarn).toHaveBeenCalledWith('Provided container is neither a string nor an HTMLElement.')
+  })
 })
 
 describe('cleanup function', () => {
@@ -119,13 +132,11 @@ describe('cleanup function', () => {
   let mockObserverInstance: any
 
   beforeEach(() => {
-    // Mock document.getElementById
     mockContainer = document.createElement('div')
     mockContainer.id = 'orbital-container'
     mockContainer.getAttribute = jest.fn().mockReturnValue('mock-signature')
     jest.spyOn(document, 'getElementById').mockReturnValue(mockContainer)
 
-    // Mock MutationObserver
     mockObserverInstance = {
       observe: jest.fn(),
       disconnect: jest.fn(),
@@ -133,8 +144,7 @@ describe('cleanup function', () => {
     mockMutationObserver = jest.fn(() => mockObserverInstance)
     ;(global as any).MutationObserver = mockMutationObserver
 
-    // Clear containers before each test
-    jest.resetModules() // This forces a fresh module for each test
+    jest.resetModules()
   })
 
   afterEach(() => {
@@ -142,24 +152,18 @@ describe('cleanup function', () => {
   })
 
   it('should disconnect the observer and remove the container from the map after init', () => {
-    // Call init to initialize the container and start observing
     init({ container: 'orbital-container' })
 
-    // Verify that the observer was set up and the MutationObserver instance was created
     expect(mockMutationObserver).toHaveBeenCalled()
 
-    // Call cleanup to remove the observer
     cleanup('orbital-container')
 
-    // Check if disconnect was called
     expect(mockObserverInstance.disconnect).toHaveBeenCalled()
   })
 
-  it('should do nothing if the container does not exist in the map', () => {
-    const mockObserver = { disconnect: jest.fn() } as unknown as MutationObserver
-
+  it('should do nothing if the container does not exist in the list', () => {
     cleanup('non-existent-container')
 
-    expect(mockObserver.disconnect).not.toHaveBeenCalled()
+    expect(mockObserverInstance.disconnect).not.toHaveBeenCalled()
   })
 })

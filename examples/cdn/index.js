@@ -18,8 +18,6 @@ window.addEventListener('load', async () => {
     lastName: 'Calosa',
     countryOfResidence: 'US',
     nameType: 'legal',
-    productImage:
-      'https://st2.depositphotos.com/2021995/9294/i/450/depositphotos_92947036-stock-photo-jpeg-concept-wooden-letterpress-type.jpg',
   }
 
   await fetch(window.env.API_URL, {

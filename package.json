@@ -7,8 +7,8 @@
   "jsnext:main": "lib/index.mjs",
   "types": "lib/index.d.ts",
   "typings": "lib/index.d.ts",
-  "author": "<neilzon.calosa@getorbital.com>",
-  "homepage": "https://github.com/PayConstruct/ecom-orbital-widget.git#readme",
+  "author": "PayConstruct (https://www.getorbital.com/)",
+  "homepage": "https://github.com/PayConstruct/ecomm-orbital-widget-js.git#readme",
   "license": "UNLICENSED",
   "keywords": [
     "Orbital",
@@ -65,5 +65,8 @@
   ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
-  }
+  },
+  "contributors": [
+    "Neilzon Jobert Calosa <neilzon.calosa@getorbital.com> (https://github.com/NeilzonC)"
+  ]
 }

@@ -1618,10 +1618,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@payconstruct/orbital-widget@3.1.0":
-  version "3.1.0"
-  resolved "https://npm.pkg.github.com/download/@payconstruct/orbital-widget/3.1.0/b118e205c4b443171d41b7bd82839466f310833e#b118e205c4b443171d41b7bd82839466f310833e"
-  integrity sha512-ajQLb2CBx4g1/0pXPzojND+8fT+HI0a9Pj8NwfN1wL8bBnDpLZDUX/PZQMyQWI25cpFwwD0aMqk6o4B+rRy1Dg==
+"@payconstruct/orbital-widget@^4.1.1":
+  version "4.1.1"
+  resolved "https://npm.pkg.github.com/download/@payconstruct/orbital-widget/4.1.1/96131006bae00c38982f19c504a677ea10ae6251#96131006bae00c38982f19c504a677ea10ae6251"
+  integrity sha512-Ufa3PbOs5vDETG9cStfnkW0Dwz4i59AQDMrqf2Bk8flFPtY2m0eHDW94YHoNiEkXi5Cm3EwxSHA2bC2MsUb4eA==
   dependencies:
     "@aws-sdk/client-s3" "^3.637.0"
     "@aws-sdk/lib-storage" "^3.637.0"
