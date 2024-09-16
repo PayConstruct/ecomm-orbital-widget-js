@@ -45,7 +45,7 @@ const OrbitalWidget: React.FC = () => {
       })
 
       /*
-       * or using react refs
+       * OR using React ref / passing HTML element directly
        * init({
        *  container: orbitalRef.current,
        * })

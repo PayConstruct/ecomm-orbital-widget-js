@@ -1,6 +1,6 @@
 {
   "versionBranches": "version-",
-  "baseBranch": "tst",
+  "baseBranch": "prd",
   "plugins": [
     "npm"
   ]
