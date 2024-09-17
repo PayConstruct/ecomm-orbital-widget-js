@@ -16,5 +16,6 @@ export type PayloadType = {
 }
 
 export type SignatureResponse = {
+  message?: string
   signature?: string
 }

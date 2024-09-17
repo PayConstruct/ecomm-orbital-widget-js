@@ -18,7 +18,7 @@ import { payload } from '../config'
 
       if (typeof OrbitalWidget !== 'undefined' && typeof OrbitalWidget.init === 'function') {
         OrbitalWidget.init({
-          container: 'orbital',
+          container: orbitalElement,
         })
       } else {
         console.error('OrbitalWidget was not loaded properly.')

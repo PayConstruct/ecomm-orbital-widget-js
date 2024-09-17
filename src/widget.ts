@@ -17,7 +17,7 @@ export function init({ container }: InitOptions): void {
         console.warn(`Container with ID ${container} not found.`)
       }
     } else if (container instanceof HTMLElement) {
-      // For direct HTML elements (React refs)
+      // For direct HTML elements (e.g: React refs current)
       setupContainer(container)
     } else {
       console.warn('Provided container is neither a string nor an HTMLElement.')
@@ -46,9 +46,9 @@ function renderWidget(element: HTMLElement) {
     console.warn('No signature provided.')
     return
   }
-
+  const subDomain = signature?.includes('transaction-failed') ? signature : `/invoice/widgets?hppEncodedId=${signature}`
   const iframe = document.createElement('iframe')
-  iframe.src = `${process.env.BASE_URL}/invoice/widgets?hppEncodedId=${signature}`
+  iframe.src = `${process.env.BASE_URL}${subDomain}`
   iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin')
   iframe.setAttribute('referrerpolicy', 'no-referrer')
   element.innerHTML = ''
