@@ -1,3 +1,17 @@
+# v4.1.4 (Tue Sep 17 2024)
+
+#### ⚠️ Pushed to `tst`
+
+- feat: Add support for failed transaction ([@NeilzonC](https://github.com/NeilzonC))
+- Merge branch 'tst' of https://github.com/PayConstruct/ecomm-orbital-widget-js into tst ([@NeilzonC](https://github.com/NeilzonC))
+- chore: change baseBranch to prod ([@NeilzonC](https://github.com/NeilzonC))
+
+#### Authors: 1
+
+- Neilzon ([@NeilzonC](https://github.com/NeilzonC))
+
+---
+
 # v4.1.3 (Mon Sep 16 2024)
 
 #### ⚠️ Pushed to `tst`
