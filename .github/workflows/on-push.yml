@@ -6,7 +6,7 @@ on:
       - '*'
       - '*/*'
       - '**'
-      - '!prd'
+      - '!main'
 
 permissions:
   id-token: write
