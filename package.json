@@ -1,6 +1,6 @@
 {
   "name": "@payconstruct/orbital-widget",
-  "version": "4.1.4",
+  "version": "4.1.5",
   "description": "Orbital Widgets for fast and seamless payment processing",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
