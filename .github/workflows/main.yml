@@ -1,47 +1,95 @@
-# Name of our action
 name: Deploy package to GitHub package registry
 
-# The event that will trigger the action
 on:
   push:
-    branches: [prd]
+    branches: [prd, tst, next]
 
-# what the action will do
+permissions:
+  id-token: write
+  contents: write
+
 jobs:
+  dependency_vulnerability_audit:
+    uses: PayConstruct/github-actions-workflows/.github/workflows/dependency-vulnerability-audit.yml@main
   release:
-    # The operating system it will run on
+    needs: [dependency_vulnerability_audit]
+    uses: PayConstruct/github-actions-workflows/.github/workflows/release-npm-registry-package.yml@main
+    with:
+      branch_name: ${{ github.ref_name }}
+    secrets:
+      deploy_token: ${{ secrets.DEPLOY_TOKEN }}
+      org_npmrc: ${{ secrets.ORG_NPMRC }}
+      base_url_tst: ${{ secrets.BASE_URL_TST }}
+      base_url: ${{ secrets.BASE_URL }}
+  upload_to_s3:
     runs-on: ubuntu-latest
-    # This check needs to be in place to prevent a publish loop with auto and github actions
-    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
-    # The list of steps that the action will go through
+    needs: [release]
     steps:
-      - uses: actions/checkout@v2
-      - name: Prepare repository
-        run: |
-          git config --global user.email "guillaume.ruch@payconstruct.com"
-          git config --global user.name "Guillaume Ruch"
-          git fetch --unshallow --tags
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          node-version: 16.x
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
           registry-url: 'https://npm.pkg.github.com'
           scope: '@payperform'
 
       - name: Cache node modules
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: yarn-deps-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             yarn-deps-${{ hashFiles('yarn.lock') }}
-      - name: Create Release
-        # TODO un-hardcode
+
+      - name: Determine Role to use
+        id: checkroles
+        shell: bash
+        run: |
+          if [ "${{ github.ref_name }}" == "tst" ]; then
+            echo role-to-use=$TST_IAM_ROLE >> $GITHUB_OUTPUT
+          elif [ "${{ github.ref_name }}" == "prd" ]; then
+            echo role-to-use=$PRD_IAM_ROLE >> $GITHUB_OUTPUT
+          else
+            echo role-to-use=$DEV_IAM_ROLE >> $GITHUB_OUTPUT
+          fi
         env:
-          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+          DEV_IAM_ROLE: ${{ secrets.DEV_IAM_ROLE_PM }}
+          TST_IAM_ROLE: ${{ secrets.TST_IAM_ROLE_PM }}
+          PRD_IAM_ROLE: ${{ secrets.PRD_IAM_ROLE_PM }}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ap-southeast-1
+          role-to-assume: ${{ steps.checkroles.outputs.role-to-use }}
+          role-session-name: OIDCSession
+
+      - name: Use .npmrc
+        uses: bduff9/use-npmrc@v1.2
+        with:
+          dot-npmrc: ${{ secrets.ORG_NPMRC }}
+
+      - name: Set base url
+        id: setBaseUrl
+        run: |
+          if [[ "${{ github.ref_name }}" == "tst" ]]; then
+            echo base-url=$BASE_URL_TST >> $GITHUB_OUTPUT
+          else
+            echo base-url=$BASE_URL >> $GITHUB_OUTPUT
+          fi
+        env:
+          BASE_URL_TST: ${{ secrets.BASE_URL_TST }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+
+      - name: Update CDN
+        env:
+          BASE_URL: ${{ steps.setBaseUrl.outputs.base-url }}
         run: |
           yarn install --frozen-lockfile
           yarn build
-          yarn release
-        #   yarn test
+          yarn upload

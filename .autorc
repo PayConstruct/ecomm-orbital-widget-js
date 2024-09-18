@@ -1,0 +1,7 @@
+{
+  "versionBranches": "version-",
+  "baseBranch": "prd",
+  "plugins": [
+    "npm"
+  ]
+}

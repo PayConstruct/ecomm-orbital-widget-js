@@ -1,33 +1,25 @@
-# template-orbital-shared-packages
+# Orbital Widget
 
-This repository serves as a template for creating shared NPM packages within the orbital team. It utilizes GitHub Actions to automate the development workflow.
+[![Version](https://img.shields.io/npm/v/my-package.svg)](https://www.npmjs.org/package/my-package)
+[![Build Status](https://github.com/PayConstruct/ecomm-orbital-widget-js/actions/workflows/main.yml/badge.svg?branch=prd)](https://github.com/PayConstruct/ecomm-orbital-widget-js/actions?query=branch%3Aprd)
 
-## Getting Started
+Orbital Widget simplifies embedding external pages within an iframe for seamless integration, removing the need for redirects. With a few lines of code, you can integrate the widget into your site and provide a smoother user experience.
 
-To use this template, follow these steps:
+## Features
 
-1. **Clone the repository**: Start by cloning the template repository to your local machine using the following command:
+- Embed Orbital's payment pages in an iframe with minimal setup.
+- No redirects needed; content is embedded directly on your site.
+
+## Installation
+
+To install via npm:
 
 ```bash
-git clone https://github.com/PayConstruct/template-orbital-shared-packages.git
+npm install @payconstruct/orbital-widget
 ```
 
-2. **Install dependencies**: Navigate to the cloned repository directory and install the necessary dependencies by running:
+or yarn
 
 ```bash
-yarn 
+yarn add @payconstruct/orbital-widget
 ```
-
-3. **Create a new package**: To create a new package, push your code to the `prd` branch with the desired package name in the `package.json` file.
-
-4. **Develop your package**: Open the `packages` directory and start developing your package. Write your code in the `src` directory and export it using the `index.ts` file.
-
-5. **Test your package**: You can add tests for your package inside the `tests` directory. The tests will be automatically run by GitHub Actions on each push to the `prd` branch.
-
-6. **Publish your package**: Once your code is ready, push it to the `prd` branch. GitHub Actions will automatically build and publish your package to the npm registry.
-
-## Customization
-
-You can customize the template repository to fit your specific needs. Here are a few things you may want to consider:
-
-- Update the `name` field in the `package.json` file to match the desired package name.
