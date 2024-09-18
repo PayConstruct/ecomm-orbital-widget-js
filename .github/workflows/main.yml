@@ -2,7 +2,7 @@ name: Deploy package to GitHub package registry
 
 on:
   push:
-    branches: [prd, tst, next]
+    branches: [main, dev, next]
 
 permissions:
   id-token: write
@@ -52,7 +52,7 @@ jobs:
         run: |
           if [ "${{ github.ref_name }}" == "tst" ]; then
             echo role-to-use=$TST_IAM_ROLE >> $GITHUB_OUTPUT
-          elif [ "${{ github.ref_name }}" == "prd" ]; then
+          elif [ "${{ github.ref_name }}" == "main" ]; then
             echo role-to-use=$PRD_IAM_ROLE >> $GITHUB_OUTPUT
           else
             echo role-to-use=$DEV_IAM_ROLE >> $GITHUB_OUTPUT
