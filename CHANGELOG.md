@@ -1,3 +1,19 @@
+# v4.1.5 (Wed Sep 18 2024)
+
+#### 🐛 Bug Fix
+
+- feat: change reusable workflow [#29](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/29) ([@LOpayperform](https://github.com/LOpayperform))
+
+#### ⚠️ Pushed to `main`
+
+- sync with tst branch ([@LOpayperform](https://github.com/LOpayperform))
+
+#### Authors: 1
+
+- Leonardo Louie ([@LOpayperform](https://github.com/LOpayperform))
+
+---
+
 # v4.1.4 (Tue Sep 17 2024)
 
 #### ⚠️ Pushed to `tst`
