@@ -11,6 +11,7 @@ permissions:
 jobs:
   dependency_vulnerability_audit:
     uses: PayConstruct/github-actions-workflows/.github/workflows/dependency-vulnerability-audit.yml@main
+
   release:
     needs: [dependency_vulnerability_audit]
     uses: PayConstruct/github-actions-workflows/.github/workflows/release-npm-registry-package.yml@main
@@ -21,6 +22,7 @@ jobs:
       org_npmrc: ${{ secrets.ORG_NPMRC }}
       base_url_tst: ${{ secrets.BASE_URL_TST }}
       base_url: ${{ secrets.BASE_URL }}
+
   upload_to_s3:
     runs-on: ubuntu-latest
     needs: [release]
@@ -74,22 +76,32 @@ jobs:
         with:
           dot-npmrc: ${{ secrets.ORG_NPMRC }}
 
-      - name: Set base url
+      - name: Set base URL and bucket name using secrets
         id: setBaseUrl
         run: |
           if [[ "${{ github.ref_name }}" == "dev" ]]; then
             echo base-url=$BASE_URL_TST >> $GITHUB_OUTPUT
-          else
+            echo bucket-name=${{ secrets.BUCKET_NAME_TST }} >> $GITHUB_OUTPUT
+          elif [[ "${{ github.ref_name }}" == "main" ]]; then
             echo base-url=$BASE_URL >> $GITHUB_OUTPUT
+            echo bucket-name=${{ secrets.BUCKET_NAME_PRD }} >> $GITHUB_OUTPUT
+          else
+            echo base-url=$BASE_URL_TST >> $GITHUB_OUTPUT
+            echo bucket-name=${{ secrets.BUCKET_NAME_TST }} >> $GITHUB_OUTPUT
           fi
         env:
-          BASE_URL_TST: ${{ secrets.BASE_URL_TST }}
-          BASE_URL: ${{ secrets.BASE_URL }}
-
-      - name: Update CDN
-        env:
           BASE_URL: ${{ steps.setBaseUrl.outputs.base-url }}
+
+      - name: Install Dependencies and Build
         run: |
           yarn install --frozen-lockfile
           yarn build
-          yarn upload
+
+      - name: Update CDN
+        run: |
+          file="dist/index.umd.min.js"
+          if [[ ! -f "$file" ]]; then
+            echo "Error: $file does not exist."
+            exit 1
+          fi
+          aws s3 cp "$file" "s3://${{ steps.setBaseUrl.outputs.bucket-name }}/index.js" --acl public-read
