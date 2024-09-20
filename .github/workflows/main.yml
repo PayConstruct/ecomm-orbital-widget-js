@@ -12,15 +12,12 @@ permissions:
   contents: write
 
 jobs:
-  # dependency_vulnerability_audit:
-  #   uses: PayConstruct/github-actions-workflows/.github/workflows/dependency-vulnerability-audit.yml@main
-  #   secrets:
-  #     GH_PAT: ${{ secrets.GH_PAT_ORG }}
-          
+  dependency_vulnerability_audit:
+    uses: ./dependency-vulnerability-audit.yml
 
   release:
-    # needs: [dependency_vulnerability_audit]
-    uses: PayConstruct/github-actions-workflows/.github/workflows/release-npm-registry-package.yml@main
+    needs: [dependency_vulnerability_audit]
+    uses: ./release-npm-registry-package.yml
     with:
       branch_name: ${{ github.ref_name }}
     secrets:
