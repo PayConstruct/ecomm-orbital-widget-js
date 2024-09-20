@@ -13,11 +13,11 @@ permissions:
 
 jobs:
   dependency_vulnerability_audit:
-    uses: ./dependency-vulnerability-audit.yml
+    uses: ./.github/workflows/dependency-vulnerability-audit.yml
 
   release:
     needs: [dependency_vulnerability_audit]
-    uses: ./release-npm-registry-package.yml
+    uses: ./.github/workflows/release-npm-registry-package.yml
     with:
       branch_name: ${{ github.ref_name }}
     secrets:
