@@ -25,7 +25,6 @@ jobs:
       org_npmrc: ${{ secrets.ORG_NPMRC }}
       base_url_tst: ${{ secrets.BASE_URL_TST }}
       base_url: ${{ secrets.BASE_URL }}
-      github_token: ${{ secrets.GH_PAT }}
 
   upload_to_s3:
     runs-on: ubuntu-latest
