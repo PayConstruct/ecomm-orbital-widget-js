@@ -13,22 +13,10 @@ permissions:
 
 jobs:
   dependency_vulnerability_audit:
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - name: Checkout the private repo
-        uses: actions/checkout@v3
-        with:
-          repository: PayConstruct/github-actions-workflows
-          token: ${{ secrets.GH_PAT }}
-          path: .github/workflows/
+    uses: organization-name/repo-name/.github/workflows/dependency-vulnerability-audit.yml@main
+    secrets:
+      GH_PAT: ${{ secrets.GH_PAT }}
           
-      - name: Run reusable workflow
-        uses: PayConstruct/github-actions-workflows/.github/workflows/dependency-vulnerability-audit.yml@main
-        with:
-          GH_PAT: ${{ secrets.GH_PAT }}
 
   release:
     needs: [dependency_vulnerability_audit]
