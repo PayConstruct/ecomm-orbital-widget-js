@@ -15,7 +15,7 @@ jobs:
   dependency_vulnerability_audit:
     uses: PayConstruct/github-actions-workflows/.github/workflows/dependency-vulnerability-audit.yml@main
     secrets:
-      GH_PAT: ${{ secrets.GH_PAT }}
+      GH_PAT: ${{ secrets.GH_PAT_TOKEN }}
           
 
   release:
