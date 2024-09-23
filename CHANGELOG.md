@@ -1,3 +1,22 @@
+# v4.2.0 (Mon Sep 23 2024)
+
+#### 🚀 Enhancement
+
+- chore: update example for CDN [#32](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/32) ([@NeilzonC](https://github.com/NeilzonC))
+
+#### 🐛 Bug Fix
+
+- fix: deployment to s3 and etc [#33](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/33) ([@NeilzonC](https://github.com/NeilzonC) [@LOpayperform](https://github.com/LOpayperform) [@k-karanasos](https://github.com/k-karanasos) [@konkonstantinidis](https://github.com/konkonstantinidis))
+
+#### Authors: 4
+
+- Konstantinos Konstantinidis ([@konkonstantinidis](https://github.com/konkonstantinidis))
+- Kostas ([@k-karanasos](https://github.com/k-karanasos))
+- Leonardo Louie ([@LOpayperform](https://github.com/LOpayperform))
+- Neilzon ([@NeilzonC](https://github.com/NeilzonC))
+
+---
+
 # v4.1.5 (Wed Sep 18 2024)
 
 #### 🐛 Bug Fix
