@@ -2,6 +2,12 @@
   "versionBranches": "version-",
   "baseBranch": "main",
   "plugins": [
-    "npm"
+    "npm",
+    [
+      "protected-branch",
+      {
+        "baseBranch": "main"
+      }
+    ]
   ]
 }

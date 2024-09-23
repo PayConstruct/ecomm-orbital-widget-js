@@ -85,8 +85,6 @@ jobs:
         run: |
           if [ "${{ inputs.branch_name }}" == "dev" ]; then
             yarn auto canary --force
-          elif [ "${{ inputs.branch_name }}" == "next" ]; then
-            yarn auto shipit
           else 
             yarn auto shipit --base-branch=main
           fi
