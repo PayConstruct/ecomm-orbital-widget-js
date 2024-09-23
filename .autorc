@@ -16,5 +16,10 @@
         ]
       }
     ]
-  ]
+  ],
+  "publish": {
+    "npm": {
+      "access": "public"
+    }
+  }
 }
