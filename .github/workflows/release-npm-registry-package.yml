@@ -89,3 +89,7 @@ jobs:
           else 
             yarn auto shipit --base-branch=main
           fi
+      - name: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.deploy_token }}
+        run: npm publish --access public
