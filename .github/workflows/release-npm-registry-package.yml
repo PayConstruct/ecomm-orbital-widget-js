@@ -1,0 +1,92 @@
+name: Deploy package to GitHub package registry
+
+on:
+  workflow_call:
+    inputs:
+      branch_name:
+        required: true
+        description: The branch name triggering the workflow
+        type: string
+    secrets:
+      base_url_tst:
+        required: false
+        description: Optional Base URL for the 'tst' environment
+      base_url:
+        required: false
+        description: Optional Base URL for other environments
+      deploy_token:
+        required: true
+        description: GitHub deploy token
+      org_npmrc:
+        required: true
+        description: .npmrc secret for GitHub Packages authentication
+
+permissions:
+  id-token: write
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci') }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@payperform'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: yarn-deps-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-deps-${{ hashFiles('yarn.lock') }}
+
+      - name: Use .npmrc
+        uses: bduff9/use-npmrc@v2.0.0
+        with:
+          dot-npmrc: ${{ secrets.org_npmrc }}
+
+      - name: Set Git Identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch --unshallow --tags
+
+      - name: Set env (optional)
+        id: setEnv
+        run: |
+          if [ "${{ inputs.branch_name }}" == "dev" ]; then
+            echo base-url=${{ secrets.base_url_tst }} >> $GITHUB_OUTPUT
+          else
+            echo base-url=${{ secrets.base_url }} >> $GITHUB_OUTPUT
+          fi
+      - name: Build project
+        env:
+          BASE_URL: ${{ steps.setEnv.outputs.base-url }}
+        run: |
+          yarn build
+      - name: Update version and publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.deploy_token }}
+          NODE_AUTH_TOKEN: ${{ secrets.deploy_token }}
+        run: |
+          if [ "${{ inputs.branch_name }}" == "dev" ]; then
+            yarn auto canary --force
+          elif [ "${{ inputs.branch_name }}" == "next" ]; then
+            yarn auto shipit
+          else 
+            yarn auto shipit --base-branch=main
+          fi

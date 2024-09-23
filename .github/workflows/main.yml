@@ -2,7 +2,10 @@ name: Deploy package to GitHub package registry
 
 on:
   push:
-    branches: [main, dev, next]
+    branches:
+      - main
+      - dev
+      - next
 
 permissions:
   id-token: write
@@ -10,10 +13,11 @@ permissions:
 
 jobs:
   dependency_vulnerability_audit:
-    uses: PayConstruct/github-actions-workflows/.github/workflows/dependency-vulnerability-audit.yml@main
+    uses: ./.github/workflows/dependency-vulnerability-audit.yml
+
   release:
     needs: [dependency_vulnerability_audit]
-    uses: PayConstruct/github-actions-workflows/.github/workflows/release-npm-registry-package.yml@main
+    uses: ./.github/workflows/release-npm-registry-package.yml
     with:
       branch_name: ${{ github.ref_name }}
     secrets:
@@ -21,8 +25,12 @@ jobs:
       org_npmrc: ${{ secrets.ORG_NPMRC }}
       base_url_tst: ${{ secrets.BASE_URL_TST }}
       base_url: ${{ secrets.BASE_URL }}
+
   upload_to_s3:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     needs: [release]
     steps:
       - name: Checkout
@@ -58,38 +66,47 @@ jobs:
             echo role-to-use=$DEV_IAM_ROLE >> $GITHUB_OUTPUT
           fi
         env:
-          DEV_IAM_ROLE: ${{ secrets.DEV_IAM_ROLE_PM }}
           TST_IAM_ROLE: ${{ secrets.TST_IAM_ROLE_PM }}
           PRD_IAM_ROLE: ${{ secrets.PRD_IAM_ROLE_PM }}
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: ap-southeast-1
           role-to-assume: ${{ steps.checkroles.outputs.role-to-use }}
           role-session-name: OIDCSession
 
       - name: Use .npmrc
-        uses: bduff9/use-npmrc@v1.2
+        uses: bduff9/use-npmrc@v2.0.0
         with:
           dot-npmrc: ${{ secrets.ORG_NPMRC }}
 
-      - name: Set base url
+      - name: Set base URL and bucket name using secrets
         id: setBaseUrl
         run: |
           if [[ "${{ github.ref_name }}" == "dev" ]]; then
             echo base-url=$BASE_URL_TST >> $GITHUB_OUTPUT
-          else
+            echo bucket-name=${{ secrets.BUCKET_NAME_TST }} >> $GITHUB_OUTPUT
+          elif [[ "${{ github.ref_name }}" == "main" ]]; then
             echo base-url=$BASE_URL >> $GITHUB_OUTPUT
+            echo bucket-name=${{ secrets.BUCKET_NAME_PRD }} >> $GITHUB_OUTPUT
+          else
+            echo base-url=$BASE_URL_TST >> $GITHUB_OUTPUT
+            echo bucket-name=${{ secrets.BUCKET_NAME_TST }} >> $GITHUB_OUTPUT
           fi
         env:
-          BASE_URL_TST: ${{ secrets.BASE_URL_TST }}
-          BASE_URL: ${{ secrets.BASE_URL }}
-
-      - name: Update CDN
-        env:
           BASE_URL: ${{ steps.setBaseUrl.outputs.base-url }}
+
+      - name: Install Dependencies and Build
         run: |
           yarn install --frozen-lockfile
           yarn build
-          yarn upload
+
+      - name: Update CDN
+        run: |
+          file="dist/index.umd.min.js"
+          if [[ ! -f "$file" ]]; then
+            echo "Error: $file does not exist."
+            exit 1
+          fi
+          aws s3 cp "$file" "s3://${{ steps.setBaseUrl.outputs.bucket-name }}/index.js"
