@@ -28,6 +28,9 @@ jobs:
 
   upload_to_s3:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     needs: [release]
     steps:
       - name: Checkout
