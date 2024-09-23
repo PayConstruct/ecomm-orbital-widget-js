@@ -82,6 +82,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.deploy_token }}
           NODE_AUTH_TOKEN: ${{ secrets.deploy_token }}
+          PROTECTED_BRANCH_REVIEWER_TOKEN: ${{ secrets.deploy_token }}
         run: |
           if [ "${{ inputs.branch_name }}" == "dev" ]; then
             yarn auto canary --force
