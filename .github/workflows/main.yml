@@ -67,7 +67,6 @@ jobs:
           fi
         env:
           DEV_IAM_ROLE: ${{ secrets.DEV_IAM_ROLE_PM }}
-          TST_IAM_ROLE: ${{ secrets.TST_IAM_ROLE_PM }}
           PRD_IAM_ROLE: ${{ secrets.PRD_IAM_ROLE_PM }}
 
       - name: Configure AWS Credentials
