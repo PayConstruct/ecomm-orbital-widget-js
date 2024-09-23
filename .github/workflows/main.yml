@@ -76,7 +76,6 @@ jobs:
           role-to-assume: ${{ steps.checkroles.outputs.role-to-use }}
           role-session-name: OIDCSession
 
-
       - name: Use .npmrc
         uses: bduff9/use-npmrc@v1.2
         with:
@@ -110,4 +109,4 @@ jobs:
             echo "Error: $file does not exist."
             exit 1
           fi
-          aws s3 cp "$file" "s3://${{ steps.setBaseUrl.outputs.bucket-name }}/index.js" --acl public-read
+          aws s3 cp "$file" "s3://${{ steps.setBaseUrl.outputs.bucket-name }}/index.js"
