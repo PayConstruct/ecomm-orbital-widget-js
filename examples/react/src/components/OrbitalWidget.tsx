@@ -10,6 +10,7 @@ const OrbitalWidget: React.FC = () => {
   const initialized = useRef(false)
 
   useEffect(() => {
+
     const fetchSignature = async () => {
       //initialized only use for example to avoid double rerendering for react running in strict mode locally, can be removed
       if (!initialized.current) {
