@@ -6,7 +6,11 @@
     [
       "protected-branch",
       {
-        "baseBranch": "main"
+        "releaseTemporaryBranchPrefix": "protected-release-",
+        "requiredStatusChecks": [
+          "check-1",
+          "check-2"
+        ]
       }
     ]
   ]
