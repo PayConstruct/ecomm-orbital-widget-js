@@ -23,3 +23,11 @@ or yarn
 ```bash
 yarn add @payconstruct/orbital-widget
 ```
+
+Via cdn:
+
+You can also include Orbital Widget using the CDN for faster integration:
+
+```
+<script src="https://widgets.getorbital.io/index.js"></script>
+```
