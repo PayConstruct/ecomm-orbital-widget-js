@@ -24,6 +24,8 @@ on:
 permissions:
   id-token: write
   contents: write
+  checks: write
+  statuses: write
 
 jobs:
   release:
@@ -87,5 +89,5 @@ jobs:
           if [ "${{ inputs.branch_name }}" == "dev" ]; then
             yarn auto canary --force
           else 
-            yarn auto shipit --base-branch=main
+            yarn auto shipit
           fi
