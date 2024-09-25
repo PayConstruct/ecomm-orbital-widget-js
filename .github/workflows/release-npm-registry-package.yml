@@ -60,8 +60,8 @@ jobs:
 
       - name: Set Git Identity
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.email "github-bot@getorbital.com"
+          git config --global user.name "getorbital-bot"
           git fetch --unshallow --tags
 
       - name: Set env (optional)
