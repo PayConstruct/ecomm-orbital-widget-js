@@ -1,3 +1,17 @@
+# v4.3.7 (Wed Sep 25 2024)
+
+#### 🐛 Bug Fix
+
+- fix: permission issue by setting git identity [#55](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/55) ([@LOpayperform](https://github.com/LOpayperform))
+- fix: semantic versioning [#53](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/53) ([@LOpayperform](https://github.com/LOpayperform))
+- feat: publish package to npm registry [#52](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/52) ([@LOpayperform](https://github.com/LOpayperform))
+
+#### Authors: 1
+
+- Leonardo Louie ([@LOpayperform](https://github.com/LOpayperform))
+
+---
+
 # v4.3.1 (Tue Sep 24 2024)
 
 #### 🐛 Bug Fix
