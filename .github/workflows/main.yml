@@ -87,12 +87,12 @@ jobs:
         run: |
           if [[ "${{ github.ref_name }}" == "dev" ]]; then
             echo base-url=$BASE_URL_TST >> $GITHUB_OUTPUT
-            echo bucket-name=${{ secrets.BUCKET_NAME_TST }} >> $GITHUB_OUTPUT
+            echo bucket-name=${{ secrets.BASE_URL_TST }} >> $GITHUB_OUTPUT
           elif [[ "${{ github.ref_name }}" == "main" ]]; then
-            echo base-url=$BASE_URL >> $GITHUB_OUTPUT
+            echo base-url=${{ secrets.BASE_URL }} >> $GITHUB_OUTPUT
             echo bucket-name=${{ secrets.BUCKET_NAME_PRD }} >> $GITHUB_OUTPUT
           else
-            echo base-url=$BASE_URL_TST >> $GITHUB_OUTPUT
+            echo base-url=${{ secrets.BASE_URL_TST }} >> $GITHUB_OUTPUT
             echo bucket-name=${{ secrets.BUCKET_NAME_TST }} >> $GITHUB_OUTPUT
           fi
         env:
