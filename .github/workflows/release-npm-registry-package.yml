@@ -53,6 +53,17 @@ jobs:
           restore-keys: |
             yarn-deps-${{ hashFiles('yarn.lock') }}
 
+      - name: Use .npmrc
+        uses: bduff9/use-npmrc@v2.0.0
+        with:
+          dot-npmrc: ${{ secrets.org_npmrc }}
+
+      - name: Set Git Identity
+        run: |
+          git config --global user.email "github-bot@getorbital.com"
+          git config --global user.name "getorbital-bot"
+          git fetch --unshallow --tags
+
       - name: Set env (optional)
         id: setEnv
         run: |
