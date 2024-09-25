@@ -68,9 +68,5 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
-  },
-  "contributors": [
-    "Neilzon Jobert Calosa <neilzon.calosa@getorbital.com> (https://github.com/NeilzonC)",
-    "Leonardo Louie Ordonez <leonardo.ordonez@getorbital.com> (https://github.com/LOpayperform)"
-  ]
+  }
 }
