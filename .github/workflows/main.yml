@@ -83,20 +83,25 @@ jobs:
           dot-npmrc: ${{ secrets.ORG_NPMRC }}
 
       - name: Set base URL and bucket name using secrets
-        id: setBaseUrl
+        id: setEnvVar
         run: |
           if [[ "${{ github.ref_name }}" == "dev" ]]; then
-            echo base-url=$BASE_URL_TST >> $GITHUB_OUTPUT
-            echo bucket-name=${{ secrets.BASE_URL_TST }} >> $GITHUB_OUTPUT
+            echo "base-url=${{ secrets.BASE_URL_TST }}" >> $GITHUB_OUTPUT
+            echo "bucket-name=${{ secrets.BUCKET_NAME_TST }}" >> $GITHUB_OUTPUT
           elif [[ "${{ github.ref_name }}" == "main" ]]; then
-            echo base-url=${{ secrets.BASE_URL }} >> $GITHUB_OUTPUT
-            echo bucket-name=${{ secrets.BUCKET_NAME_PRD }} >> $GITHUB_OUTPUT
+            echo "base-url=${{ secrets.BASE_URL }}" >> $GITHUB_OUTPUT
+            echo "bucket-name=${{ secrets.BUCKET_NAME_PRD }}" >> $GITHUB_OUTPUT
           else
-            echo base-url=${{ secrets.BASE_URL_TST }} >> $GITHUB_OUTPUT
-            echo bucket-name=${{ secrets.BUCKET_NAME_TST }} >> $GITHUB_OUTPUT
+            echo "base-url=${{ secrets.BASE_URL_TST }}" >> $GITHUB_OUTPUT
+            echo "bucket-name=${{ secrets.BUCKET_NAME_TST }}" >> $GITHUB_OUTPUT
           fi
+
+      - name: Use base URL and bucket name
+        run: |
+          echo "Base URL is $BASE_URL"
+          echo "Bucket name is $BUCKET_NAME"
         env:
-          BASE_URL: ${{ steps.setBaseUrl.outputs.base-url }}
+          BASE_URL: ${{ steps.setEnvVar.outputs.base-url }}
 
       - name: Install Dependencies and Build
         run: |
@@ -110,4 +115,4 @@ jobs:
             echo "Error: $file does not exist."
             exit 1
           fi
-          aws s3 cp "$file" "s3://${{ steps.setBaseUrl.outputs.bucket-name }}/index.js"
+          aws s3 cp "$file" "s3://${{ steps.setEnvVar.outputs.bucket-name }}/index.js"
