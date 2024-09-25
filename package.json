@@ -1,5 +1,5 @@
 {
-  "name": "@payconstruct/orbital-widget",
+  "name": "@payperform/widget",
   "version": "4.3.0",
   "description": "Orbital Widgets for fast and seamless payment processing",
   "main": "lib/index.js",
@@ -66,9 +66,11 @@
     "src"
   ],
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "contributors": [
-    "Neilzon Jobert Calosa <neilzon.calosa@getorbital.com> (https://github.com/NeilzonC)"
+    "Neilzon Jobert Calosa <neilzon.calosa@getorbital.com> (https://github.com/NeilzonC)",
+    "Leonardo Louie Ordonez <leonardo.ordonez@getorbital.com> (https://github.com/LOpayperform)"
   ]
 }
