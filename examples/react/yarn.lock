@@ -1047,10 +1047,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@payconstruct/orbital-widget@^4.1.4":
-  version "4.1.4"
-  resolved "https://npm.pkg.github.com/download/@payconstruct/orbital-widget/4.1.4/d392dcec5cc02f03776067b614a82dfca5f670bc#d392dcec5cc02f03776067b614a82dfca5f670bc"
-  integrity sha512-MLLBgCOSzch55CvLa/UZSc0L6eq9DEIfflygot08U1SFKSW1nwhy43+4lpRvf55myT6h/lef+C+dWND8yYnkoA==
+"@payperform/widget@^4.3.7":
+  version "4.3.7"
+  resolved "https://registry.yarnpkg.com/@payperform/widget/-/widget-4.3.7.tgz#3a4e4d6595483a15ffcfb05420f11609bcc8b018"
+  integrity sha512-HrspzbkCuNf94Cp0EK9a4ttacxg1HRt/kVQWFYnX9aL/bVr96+z83pnmbJNj+iy5OMW7yipnL4vlWCst9ITQNA==
   dependencies:
     "@aws-sdk/client-s3" "^3.637.0"
     "@aws-sdk/lib-storage" "^3.637.0"
