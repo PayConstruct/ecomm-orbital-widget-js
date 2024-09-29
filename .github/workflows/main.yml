@@ -59,12 +59,13 @@ jobs:
         id: checkroles
         shell: bash
         run: |
-          if [ "${{ github.ref_name }}" == "dev" ]; then
-            echo role-to-use=$TST_IAM_ROLE >> $GITHUB_OUTPUT
-          elif [ "${{ github.ref_name }}" == "main" ]; then
-            echo role-to-use=$PRD_IAM_ROLE >> $GITHUB_OUTPUT
+          if [ "${GITHUB_REF_NAME}" == "dev" ]; then
+            echo "role-to-use=${TST_IAM_ROLE}" >> $GITHUB_OUTPUT
+          elif [ "${GITHUB_REF_NAME}" == "main" ]; then
+            echo "role-to-use=${PRD_IAM_ROLE}" >> $GITHUB_OUTPUT
           else
-            echo role-to-use=$DEV_IAM_ROLE >> $GITHUB_OUTPUT
+            echo "role-to-use=${DEV_IAM_ROLE}" >> $GITHUB_OUTPUT
+          fi
         env:
           TST_IAM_ROLE: ${{ secrets.TST_IAM_ROLE_PM }}
           PRD_IAM_ROLE: ${{ secrets.PRD_IAM_ROLE_PM }}
@@ -93,6 +94,7 @@ jobs:
           else
             echo "base-url=${{ secrets.BASE_URL_TST }}" >> $GITHUB_OUTPUT
             echo "bucket-name=${{ secrets.BUCKET_NAME_TST }}" >> $GITHUB_OUTPUT
+          fi
 
       - name: Use base URL and bucket name
         run: |
