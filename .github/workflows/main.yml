@@ -65,7 +65,6 @@ jobs:
             echo role-to-use=$PRD_IAM_ROLE >> $GITHUB_OUTPUT
           else
             echo role-to-use=$DEV_IAM_ROLE >> $GITHUB_OUTPUT
-          fi
         env:
           TST_IAM_ROLE: ${{ secrets.TST_IAM_ROLE_PM }}
           PRD_IAM_ROLE: ${{ secrets.PRD_IAM_ROLE_PM }}
@@ -94,7 +93,6 @@ jobs:
           else
             echo "base-url=${{ secrets.BASE_URL_TST }}" >> $GITHUB_OUTPUT
             echo "bucket-name=${{ secrets.BUCKET_NAME_TST }}" >> $GITHUB_OUTPUT
-          fi
 
       - name: Use base URL and bucket name
         run: |
@@ -102,17 +100,49 @@ jobs:
           echo "Bucket name is $BUCKET_NAME"
         env:
           BASE_URL: ${{ steps.setEnvVar.outputs.base-url }}
+          BUCKET_NAME: ${{ steps.setEnvVar.outputs.bucket-name }}
 
       - name: Install Dependencies and Build
         run: |
           yarn install --frozen-lockfile
           yarn build
+        env:
+          BASE_URL: ${{ steps.setEnvVar.outputs.base-url }}
 
-      - name: Update CDN
+      - name: Fetch the latest Git tag
+        id: get_latest_tag
+        run: |
+          # Fetch all tags
+          git fetch --tags
+
+          # Get the latest tag
+          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+
+          # If no tag is found, use default version
+          if [[ -z "$latest_tag" ]]; then
+            latest_tag="v4.7.1"  # Default if no tags exist
+          fi
+
+          echo "Latest Git tag is $latest_tag"
+          echo "latest-tag=$latest_tag" >> $GITHUB_OUTPUT
+
+      - name: Upload file with version from Git tag
         run: |
           file="dist/index.umd.min.js"
           if [[ ! -f "$file" ]]; then
             echo "Error: $file does not exist."
             exit 1
           fi
-          aws s3 cp "$file" "s3://${{ steps.setEnvVar.outputs.bucket-name }}/index.js"
+
+          # Strip the 'v' from the tag if necessary (if tags are like v4.7.1)
+          version=$(echo "${{ steps.get_latest_tag.outputs.latest-tag }}" | sed 's/^v//')
+
+          # Set the filename based on the branch
+          if [[ "${{ github.ref_name }}" == "dev" ]]; then
+            filename="index-dev-${version}.js"
+          else
+            filename="index-${version}.js"
+          fi
+
+          # Upload the file to S3 with the versioned filename
+          aws s3 cp "$file" "s3://${{ steps.setEnvVar.outputs.bucket-name }}/${filename}"
