@@ -112,6 +112,7 @@ jobs:
           BASE_URL: ${{ steps.setEnvVar.outputs.base-url }}
 
       - name: Set Git Identity and Fetch Tags
+        id: get_latest_tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -140,7 +141,7 @@ jobs:
             exit 1
           fi
 
-          # Strip the 'v' from the tag if necessary (if tags are like v4.7.1)
+          # Strip the 'v' from the tag if necessary (if tags are like v1.0.0)
           version=$(echo "${{ steps.get_latest_tag.outputs.latest-tag }}" | sed 's/^v//')
 
           # Set the filename based on the branch
