@@ -109,18 +109,22 @@ jobs:
         env:
           BASE_URL: ${{ steps.setEnvVar.outputs.base-url }}
 
-      - name: Fetch the latest Git tag
-        id: get_latest_tag
+      - name: Set Git Identity and Fetch Tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Fetch all tags
-          git fetch --tags
+          git config --global user.email "github-bot@getorbital.com"
+          git config --global user.name "getorbital-bot"
+
+          # Fetch all tags, ensuring to include tags even from a shallow clone
+          git fetch --unshallow --tags
 
           # Get the latest tag
           latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
 
           # If no tag is found, use default version
           if [[ -z "$latest_tag" ]]; then
-            latest_tag="v4.7.1"  # Default if no tags exist
+            latest_tag="v1.0.0"  # Default if no tags exist
           fi
 
           echo "Latest Git tag is $latest_tag"
