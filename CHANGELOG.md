@@ -1,3 +1,15 @@
+# v4.3.8 (Mon Sep 30 2024)
+
+#### 🐛 Bug Fix
+
+- feat: update all libraries to be pointed to new package and update example once new version is publish [#57](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/57) ([@LOpayperform](https://github.com/LOpayperform))
+
+#### Authors: 1
+
+- Leonardo Louie ([@LOpayperform](https://github.com/LOpayperform))
+
+---
+
 # v4.3.7 (Wed Sep 25 2024)
 
 #### 🐛 Bug Fix
