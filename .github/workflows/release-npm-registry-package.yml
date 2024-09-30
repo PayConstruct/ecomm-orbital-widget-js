@@ -92,7 +92,7 @@ jobs:
 
       - name: Update example packages
         run: |
-          yarn update-examples:all
+          yarn run update-examples:all
 
       - name: Commit updated examples
         run: |
