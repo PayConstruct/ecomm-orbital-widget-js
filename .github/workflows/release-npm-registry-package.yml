@@ -112,4 +112,4 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "chore: ci skip update examples with latest version"
+            git commit -m "chore: ci skip update examples with latest version."
