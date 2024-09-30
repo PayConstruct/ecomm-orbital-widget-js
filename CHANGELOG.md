@@ -1,3 +1,17 @@
+# v4.3.9 (Mon Sep 30 2024)
+
+#### 🐛 Bug Fix
+
+- feat: package update should be in main branch only [#61](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/61) ([@LOpayperform](https://github.com/LOpayperform))
+- fix: issue on updating the pacakge [#60](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/60) ([@LOpayperform](https://github.com/LOpayperform) [@orbital-gh-bot](https://github.com/orbital-gh-bot))
+
+#### Authors: 2
+
+- [@orbital-gh-bot](https://github.com/orbital-gh-bot)
+- Leonardo Louie ([@LOpayperform](https://github.com/LOpayperform))
+
+---
+
 # v4.3.8 (Mon Sep 30 2024)
 
 #### 🐛 Bug Fix
