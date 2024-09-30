@@ -113,3 +113,4 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "chore: ci skip update examples with latest version."
+          fi
