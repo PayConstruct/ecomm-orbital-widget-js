@@ -29,7 +29,7 @@
     "nodemon": "^3.1.4",
     "reload": "^3.3.0",
     "rimraf": "^3.0.0",
-    "rollup": "^1.27.14",
+    "rollup": "^2.79.2",
     "rollup-plugin-babel": "^4.3.3"
   },
   "dependencies": {
