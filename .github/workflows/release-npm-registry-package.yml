@@ -91,12 +91,18 @@ jobs:
           fi
 
       - name: Update example packages
-        if: ${{ inputs.branch_name == 'main' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.deploy_token }}
+          NODE_AUTH_TOKEN: ${{ secrets.deploy_token }}
+          NPM_TOKEN: ${{ secrets.npm_token }}
         run: |
-          yarn update-examples:all
+          yarn run update-examples:all
 
       - name: Commit updated examples
-        if: ${{ inputs.branch_name == 'main' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.deploy_token }}
+          NODE_AUTH_TOKEN: ${{ secrets.deploy_token }}
+          NPM_TOKEN: ${{ secrets.npm_token }}
         run: |
           git config --global user.email "github-bot@getorbital.com"
           git config --global user.name "getorbital-bot"
@@ -106,4 +112,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "chore: update examples with
+            git commit -m "chore: ci skip update examples with latest version."
+            git push -u origin ${{ inputs.branch_name }}
+          fi
