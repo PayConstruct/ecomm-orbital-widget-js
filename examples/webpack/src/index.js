@@ -1,4 +1,4 @@
-import * as OrbitalWidget from '@payconstruct/orbital-widget'
+import * as OrbitalWidget from '@payperform/widget'
 import './styles.css'
 import { payload } from '../config.js'
 ;(async () => {
