@@ -48,7 +48,6 @@ Here’s a simplified example of how you can integrate the Orbital Widget in a R
 ```tsx
 import React, { useEffect, useState, useRef } from 'react'
 import { init } from '@payperform/widget'
-import styles from './OrbitalWidget.module.scss'
 
 const OrbitalWidget: React.FC = () => {
   const [signature, setSignature] = useState<string | null>(null)
@@ -71,7 +70,7 @@ const OrbitalWidget: React.FC = () => {
     }
   }, [signature])
 
-  return <div className={styles['iframe-container']} id="orbital" ref={orbitalRef}></div>
+  return <div id="orbital" ref={orbitalRef}></div>
 }
 
 export default OrbitalWidget
@@ -79,7 +78,7 @@ export default OrbitalWidget
 
 **Note**: In this example, the fetching of the signature is not included. You should replace **setSignature('your-signature-from-backend')** with a call to your own server to retrieve the signature.
 
-If you would like to see a full implementation including fetching the signature from a backend, please refer to the **examples/reac**t folder in this repository.
+If you would like to see a full implementation including fetching the signature from a backend, please refer to the **examples/react** folder in this repository.
 
 Usage
 Once integrated, the widget will automatically embed Orbital's payment page within the provided container on your site.
