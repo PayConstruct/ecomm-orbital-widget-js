@@ -1,3 +1,15 @@
+# v4.3.10 (Mon Sep 30 2024)
+
+#### 🐛 Bug Fix
+
+- feat: use bot token which has push force permission [#63](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/63) ([@LOpayperform](https://github.com/LOpayperform))
+
+#### Authors: 1
+
+- Leonardo Louie ([@LOpayperform](https://github.com/LOpayperform))
+
+---
+
 # v4.3.9 (Mon Sep 30 2024)
 
 #### 🐛 Bug Fix
