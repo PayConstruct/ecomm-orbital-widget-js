@@ -89,3 +89,21 @@ jobs:
           else 
             yarn auto shipit --base-branch=main
           fi
+
+      - name: Update example packages
+        if: ${{ inputs.branch_name == 'main' }}
+        run: |
+          yarn update-examples:all
+
+      - name: Commit updated examples
+        if: ${{ inputs.branch_name == 'main' }}
+        run: |
+          git config --global user.email "github-bot@getorbital.com"
+          git config --global user.name "getorbital-bot"
+          git add ./examples/react/package.json ./examples/rollup/package.json
+
+          # Check if there are any changes to commit
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: update examples with

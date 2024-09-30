@@ -1,4 +1,4 @@
-import * as OrbitalWidget from '@payconstruct/orbital-widget'
+import * as OrbitalWidget from '@payperform/widget'
 import { payload } from '../config'
 ;(async () => {
   await fetch(process.env.API_URL, {

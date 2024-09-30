@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { init } from '@payconstruct/orbital-widget'
+import { init } from '@payperform/widget'
 import { payload } from '../config/config'
 import { SignatureResponse } from '../types'
 import styles from './OrbitalWidget.module.scss'

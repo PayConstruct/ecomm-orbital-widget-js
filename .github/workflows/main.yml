@@ -59,16 +59,21 @@ jobs:
         id: checkroles
         shell: bash
         run: |
-          if [ "${{ github.ref_name }}" == "dev" ]; then
-            echo role-to-use=$TST_IAM_ROLE >> $GITHUB_OUTPUT
-          elif [ "${{ github.ref_name }}" == "main" ]; then
-            echo role-to-use=$PRD_IAM_ROLE >> $GITHUB_OUTPUT
-          else
-            echo role-to-use=$DEV_IAM_ROLE >> $GITHUB_OUTPUT
-          fi
+          if [ "${GITHUB_REF_NAME}" == "dev" ]; then
+             echo role-to-use=$TST_IAM_ROLE >> $GITHUB_OUTPUT
+             echo DISTRIBUTION_ID=$DISTRIBUTION_ID_TST >> $GITHUB_OUTPUT
+             elif [ "${GITHUB_REF_NAME}" == "main" ]; then
+             echo role-to-use=$PRD_IAM_ROLE >> $GITHUB_OUTPUT
+             echo DISTRIBUTION_ID=$DISTRIBUTION_ID_PRD >> $GITHUB_OUTPUT
+             else
+             echo role-to-use=$TST_IAM_ROLE >> $GITHUB_OUTPUT
+             echo DISTRIBUTION_ID=$DISTRIBUTION_ID_TST >> $GITHUB_OUTPUT
+           fi
         env:
           TST_IAM_ROLE: ${{ secrets.TST_IAM_ROLE_PM }}
           PRD_IAM_ROLE: ${{ secrets.PRD_IAM_ROLE_PM }}
+          DISTRIBUTION_ID_TST: ${{ secrets.DISTRIBUTION_ID_TST }}
+          DISTRIBUTION_ID_PRD: ${{ secrets.DISTRIBUTION_ID_PRD }}
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -102,17 +107,68 @@ jobs:
           echo "Bucket name is $BUCKET_NAME"
         env:
           BASE_URL: ${{ steps.setEnvVar.outputs.base-url }}
+          BUCKET_NAME: ${{ steps.setEnvVar.outputs.bucket-name }}
 
       - name: Install Dependencies and Build
         run: |
           yarn install --frozen-lockfile
           yarn build
+        env:
+          BASE_URL: ${{ steps.setEnvVar.outputs.base-url }}
 
-      - name: Update CDN
+      - name: Set Git Identity and Fetch Tags
+        id: get_latest_tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.email "github-bot@getorbital.com"
+          git config --global user.name "getorbital-bot"
+
+          # Fetch all tags, ensuring to include tags even from a shallow clone
+          git fetch --unshallow --tags
+
+          # Get the latest tag
+          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+
+          # If no tag is found, use default version
+          if [[ -z "$latest_tag" ]]; then
+            latest_tag="v1.0.0"  # Default if no tags exist
+          fi
+
+          echo "Latest Git tag is $latest_tag"
+          echo "latest-tag=$latest_tag" >> $GITHUB_OUTPUT
+
+      - name: Upload file with version from Git tag
         run: |
           file="dist/index.umd.min.js"
           if [[ ! -f "$file" ]]; then
             echo "Error: $file does not exist."
             exit 1
           fi
-          aws s3 cp "$file" "s3://${{ steps.setEnvVar.outputs.bucket-name }}/index.js"
+
+          # Strip the 'v' from the tag if necessary (if tags are like v1.0.0)
+          version=$(echo "${{ steps.get_latest_tag.outputs.latest-tag }}" | sed 's/^v//')
+
+          # Set the filename based on the branch
+          if [[ "${{ github.ref_name }}" == "dev" ]]; then
+            filename="index-dev-${version}.js"
+            filenameLatest="index-dev-latest.js"
+          else
+            filename="index-${version}.js"
+            filenameLatest="index-latest.js"
+          fi
+
+          # Upload the file to S3 with the versioned filename
+          if ! aws s3 cp "$file" "s3://${{ steps.setEnvVar.outputs.bucket-name }}/$filename"; then
+            echo "Error: Failed to upload $filename"
+            exit 1
+          fi
+
+          # Upload the latest version file
+          if ! aws s3 cp "$file" "s3://${{ steps.setEnvVar.outputs.bucket-name }}/$filenameLatest"; then
+            echo "Error: Failed to upload $filenameLatest"
+            exit 1
+          fi
+
+          # Create CloudFront invalidation for updated files
+          aws cloudfront create-invalidation --distribution-id "${{ steps.checkroles.outputs.DISTRIBUTION_ID }}" --paths "/$filename" "/$filenameLatest"

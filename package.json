@@ -23,6 +23,10 @@
     "release": "auto shipit",
     "prettier": "prettier --check \"./**/{*.js,*.ts,*.tsx}\"",
     "prettier:fix": "prettier --list-different \"./**/{*.js,*.ts,*.tsx}\" --write",
+    "update-example:react": "cd ./examples/react && yarn add @payperform/widget@latest",
+    "update-example:rollup": "cd ./examples/rollup && yarn add @payperform/widget@latest",
+    "update-example:webpack": "cd ./examples/webpack && yarn add @payperform/widget@latest",
+    "update-examples:all": "yarn update-example:react && yarn update-example:rollup && yarn update-example:webpack",
     "test:coverage": "jest --coverage",
     "test": "jest",
     "lint": "eslint . --ext js,ts --cache --fix"
