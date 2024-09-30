@@ -60,15 +60,20 @@ jobs:
         shell: bash
         run: |
           if [ "${GITHUB_REF_NAME}" == "dev" ]; then
-            echo "role-to-use=${TST_IAM_ROLE}" >> $GITHUB_OUTPUT
-          elif [ "${GITHUB_REF_NAME}" == "main" ]; then
-            echo "role-to-use=${PRD_IAM_ROLE}" >> $GITHUB_OUTPUT
-          else
-            echo "role-to-use=${DEV_IAM_ROLE}" >> $GITHUB_OUTPUT
-          fi
+             echo role-to-use=$TST_IAM_ROLE >> $GITHUB_OUTPUT
+             echo DISTRIBUTION_ID=$DISTRIBUTION_ID_TST >> $GITHUB_OUTPUT
+             elif [ "${GITHUB_REF_NAME}" == "main" ]; then
+             echo role-to-use=$PRD_IAM_ROLE >> $GITHUB_OUTPUT
+             echo DISTRIBUTION_ID=$DISTRIBUTION_ID_PRD >> $GITHUB_OUTPUT
+             else
+             echo role-to-use=$TST_IAM_ROLE >> $GITHUB_OUTPUT
+             echo DISTRIBUTION_ID=$DISTRIBUTION_ID_TST >> $GITHUB_OUTPUT
+           fi
         env:
           TST_IAM_ROLE: ${{ secrets.TST_IAM_ROLE_PM }}
           PRD_IAM_ROLE: ${{ secrets.PRD_IAM_ROLE_PM }}
+          DISTRIBUTION_ID_TST: ${{ secrets.DISTRIBUTION_ID_TST }}
+          DISTRIBUTION_ID_PRD: ${{ secrets.DISTRIBUTION_ID_PRD }}
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -147,9 +152,23 @@ jobs:
           # Set the filename based on the branch
           if [[ "${{ github.ref_name }}" == "dev" ]]; then
             filename="index-dev-${version}.js"
+            filenameLatest="index-dev-latest.js"
           else
             filename="index-${version}.js"
+            filenameLatest="index-latest.js"
           fi
 
           # Upload the file to S3 with the versioned filename
-          aws s3 cp "$file" "s3://${{ steps.setEnvVar.outputs.bucket-name }}/${filename}"
+          if ! aws s3 cp "$file" "s3://${{ steps.setEnvVar.outputs.bucket-name }}/$filename"; then
+            echo "Error: Failed to upload $filename"
+            exit 1
+          fi
+
+          # Upload the latest version file
+          if ! aws s3 cp "$file" "s3://${{ steps.setEnvVar.outputs.bucket-name }}/$filenameLatest"; then
+            echo "Error: Failed to upload $filenameLatest"
+            exit 1
+          fi
+
+          # Create CloudFront invalidation for updated files
+          aws cloudfront create-invalidation --distribution-id "${{ steps.checkroles.outputs.DISTRIBUTION_ID }}" --paths "/$filename" "/$filenameLatest"

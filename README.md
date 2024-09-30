@@ -25,9 +25,21 @@ Via cdn:
 
 You can also include Orbital Widget using the CDN for faster integration:
 
+
+Use the latest version:
+To always load the most up-to-date version of the widget:
+
+```html
+<script src="https://widgets.getorbital.io/index-latest.js"></script>
+```
+
+Specify a specific version:
+If you want to lock in a particular version of the widget:
+
 ```html
 <script src="https://widgets.getorbital.io/index-{version}.js"></script>
 ```
+
 
 ## Example (React)
 
@@ -77,7 +89,7 @@ Once integrated, the widget will automatically embed Orbital's payment page with
 Here’s a simple example of how to integrate the Orbital Widget using vanilla JavaScript. In this example, the signature is fetched from your own backend server. The actual server call has been simplified for clarity.
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -86,7 +98,7 @@ Here’s a simple example of how to integrate the Orbital Widget using vanilla J
   </head>
   <body>
     <div id="orbital"></div>
-    <script src="https://widgets.getorbital.io/index-{version}.js"></script>
+    <script src="https://widgets.getorbital.io/index-latest.js"></script>
     <script>
       window.addEventListener('load', async () => {
         // Simulate fetching the signature from your backend
