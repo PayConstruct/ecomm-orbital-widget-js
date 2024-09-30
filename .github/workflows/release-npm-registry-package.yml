@@ -93,7 +93,7 @@ jobs:
       - name: Update example packages
         if: ${{ inputs.branch_name == 'main' }}
         env:
-          GITHUB_TOKEN: ${{ secrets.deploy_token }}
+          GITHUB_TOKEN: ${{ secrets.protected_branch_reviewer_token }}
           NODE_AUTH_TOKEN: ${{ secrets.deploy_token }}
           NPM_TOKEN: ${{ secrets.npm_token }}
         run: |
@@ -102,7 +102,7 @@ jobs:
       - name: Commit updated examples
         if: ${{ inputs.branch_name == 'main' }}
         env:
-          GITHUB_TOKEN: ${{ secrets.deploy_token }}
+          GITHUB_TOKEN: ${{ secrets.protected_branch_reviewer_token }}
           NODE_AUTH_TOKEN: ${{ secrets.deploy_token }}
           NPM_TOKEN: ${{ secrets.npm_token }}
         run: |
