@@ -191,3 +191,6 @@ node server.js
 **Fetch Signature**: You can now send a POST request to **/generate-signature** from your frontend application to retrieve the signature needed for the Orbital Widget.
 
 **Note**: This server implementation is not part of the Orbital Widget library, but it provides a necessary backend for users to fetch the required signature.
+
+
+.
