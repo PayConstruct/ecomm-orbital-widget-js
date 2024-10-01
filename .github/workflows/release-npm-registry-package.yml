@@ -91,18 +91,16 @@ jobs:
           fi
 
       - name: Update example packages
-        if: ${{ inputs.branch_name == 'main' }}
         env:
-          GITHUB_TOKEN: ${{ secrets.protected_branch_reviewer_token }}
+          GITHUB_TOKEN: ${{ secrets.deploy_token }}
           NODE_AUTH_TOKEN: ${{ secrets.deploy_token }}
           NPM_TOKEN: ${{ secrets.npm_token }}
         run: |
           yarn run update-examples:all
 
       - name: Commit updated examples
-        if: ${{ inputs.branch_name == 'main' }}
         env:
-          GITHUB_TOKEN: ${{ secrets.protected_branch_reviewer_token }}
+          GITHUB_TOKEN: ${{ secrets.deploy_token }}
           NODE_AUTH_TOKEN: ${{ secrets.deploy_token }}
           NPM_TOKEN: ${{ secrets.npm_token }}
         run: |
@@ -115,5 +113,36 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "chore: ci skip update examples with latest version."
-            git push -u origin ${{ inputs.branch_name }}
-          fi
+
+            # Create a new branch to push changes
+            git checkout -b update-version-examples-branch
+            git push -u origin update-examples-branch
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.deploy_token }}
+          commit-message: 'chore: ci skip update examples with latest version.'
+          branch: update-version-examples-branch
+          base: ${{ inputs.branch_name }}
+          title: 'Update example packages'
+          body: 'Auto-generated PR to update example packages.'
+
+      - name: Approve and merge pull request
+        if: success()
+        uses: pascalgn/automerge-action@v0.15.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.protected_branch_reviewer_token }}
+        with:
+          approve: true
+          merge-method: squash
+          merge-message: 'chore: auto-merge after package update'
+
+      - name: Delete branch after merge
+        if: success()
+        run: |
+          BRANCH_NAME=update-version-examples-branch
+          curl -X DELETE \
+            -H "Authorization: token ${{ secrets.deploy_token }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/git/refs/heads/$BRANCH_NAME
