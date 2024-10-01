@@ -1618,10 +1618,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@payperform/widget@^4.3.7":
-  version "4.3.7"
-  resolved "https://registry.yarnpkg.com/@payperform/widget/-/widget-4.3.7.tgz#3a4e4d6595483a15ffcfb05420f11609bcc8b018"
-  integrity sha512-HrspzbkCuNf94Cp0EK9a4ttacxg1HRt/kVQWFYnX9aL/bVr96+z83pnmbJNj+iy5OMW7yipnL4vlWCst9ITQNA==
+"@payperform/widget@^4.3.10":
+  version "4.3.10"
+  resolved "https://registry.yarnpkg.com/@payperform/widget/-/widget-4.3.10.tgz#8f00d1a081cd00ca916227a3ec4c1a361f4ec91b"
+  integrity sha512-ytssmH53jHPPKhc9kkzyRKUlkdEG0N0xL9U42lW52hIOFL5q63Nz32QKptV9GiI7yNbkI/5ruY6pYfnSMcipEw==
   dependencies:
     "@aws-sdk/client-s3" "^3.637.0"
     "@aws-sdk/lib-storage" "^3.637.0"
