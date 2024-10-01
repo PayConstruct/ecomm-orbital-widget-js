@@ -94,15 +94,7 @@ jobs:
             yarn auto shipit --base-branch=main
           fi
 
-      - name: Update example packages
-        env:
-          GITHUB_TOKEN: ${{ secrets.deploy_token }}
-          NODE_AUTH_TOKEN: ${{ secrets.deploy_token }}
-          NPM_TOKEN: ${{ secrets.npm_token }}
-        run: |
-          yarn run update-examples:all
-
-      - name: Commit updated examples
+      - name: Update example packages and Commit updated examples
         env:
           GITHUB_TOKEN: ${{ secrets.deploy_token }}
           NODE_AUTH_TOKEN: ${{ secrets.deploy_token }}
@@ -110,6 +102,11 @@ jobs:
         run: |
           git config --global user.email "github-bot@getorbital.com"
           git config --global user.name "getorbital-bot"
+
+          # Update examples
+          yarn run update-examples:all
+
+          # Add changes changes
           git add ./examples/react/package.json ./examples/rollup/package.json
 
           # Check if there are any changes to commit
@@ -117,11 +114,8 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "chore: ci skip update examples with latest version."
-
-            # Create a new branch to push changes
-            git fetch
+            # Create a new branch to push changes and push
             git checkout -b ${BRANCH_NAME}
-            git pull 
             git push -u origin ${BRANCH_NAME}
           fi
 
