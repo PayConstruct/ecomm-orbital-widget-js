@@ -14,8 +14,12 @@ jobs:
   dependency_vulnerability_audit:
     uses: ./.github/workflows/dependency-vulnerability-audit.yml
 
-  release:
+  validate_code:
     needs: [dependency_vulnerability_audit]
+    uses: ./.github/workflows/validate-code.yml
+
+  release:
+    needs: [validate_code]
     uses: ./.github/workflows/release-npm-registry-package.yml
     with:
       branch_name: ${{ github.ref_name }}

@@ -1,12 +1,7 @@
 name: On Push Hook
 
 on:
-  push:
-    branches:
-      - '*'
-      - '*/*'
-      - '**'
-      - '!main'
+  workflow_call:
 
 permissions:
   id-token: write
