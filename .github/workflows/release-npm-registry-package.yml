@@ -35,6 +35,10 @@ jobs:
   release:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci') }}
+
+    env:
+      BRANCH_NAME: update-version-examples-branch # Define the branch name as an environment variable
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -115,8 +119,8 @@ jobs:
             git commit -m "chore: ci skip update examples with latest version."
 
             # Create a new branch to push changes
-            git checkout -b update-version-examples-branch
-            git push -u origin update-examples-branch
+            git checkout -b $BRANCH_NAME
+            git push -u origin $BRANCH_NAME
           fi
 
       - name: Create pull request
@@ -124,7 +128,7 @@ jobs:
         with:
           token: ${{ secrets.deploy_token }}
           commit-message: 'chore: ci skip update examples with latest version.'
-          branch: update-version-examples-branch
+          branch: $BRANCH_NAME
           base: ${{ inputs.branch_name }}
           title: 'Update example packages'
           body: 'Auto-generated PR to update example packages.'
@@ -142,7 +146,6 @@ jobs:
       - name: Delete branch after merge
         if: success()
         run: |
-          BRANCH_NAME=update-version-examples-branch
           curl -X DELETE \
             -H "Authorization: token ${{ secrets.deploy_token }}" \
             -H "Accept: application/vnd.github.v3+json" \
