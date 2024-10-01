@@ -117,6 +117,7 @@ jobs:
             # Create a new branch to push changes
             git checkout -b update-version-examples-branch
             git push -u origin update-examples-branch
+          fi
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v5
