@@ -128,6 +128,7 @@ jobs:
           base: ${{ inputs.branch_name }}
           title: 'chore: automerge ci skip update examples with latest version.'
           body: 'Auto-generated PR to update example version packages.'
+          labels: automerge
 
       - name: Approve and merge pull request
         id: automerge
@@ -142,6 +143,7 @@ jobs:
           MERGE_REQUIRED_APPROVALS: '0'
           MERGE_DELETE_BRANCH: true
           BASE_BRANCHES: 'main,dev'
+          MERGE_LABELS: automerge
 
       - name: feedback
         if: ${{ steps.automerge.outputs.mergeResult == 'merged' }}
