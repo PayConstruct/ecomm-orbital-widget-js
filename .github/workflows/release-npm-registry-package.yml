@@ -119,7 +119,9 @@ jobs:
             git commit -m "chore: ci skip update examples with latest version."
 
             # Create a new branch to push changes
+            git fetch
             git checkout -b ${BRANCH_NAME}
+            git pull 
             git push -u origin ${BRANCH_NAME}
           fi
 
@@ -127,28 +129,27 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.deploy_token }}
-          commit-message: 'chore: ci skip update examples with latest version.'
+          commit-message: 'chore: automerge ci skip update examples with latest version.'
           branch: ${{ env.BRANCH_NAME }}
           base: ${{ inputs.branch_name }}
-          title: 'chore: Update example version packages'
+          title: 'chore: automerge ci skip update examples with latest version.'
           body: 'Auto-generated PR to update example version packages.'
 
       - name: Approve and merge pull request
-        if: success()
+        id: automerge
         uses: 'pascalgn/automerge-action@v0.16.4'
         env:
           GITHUB_TOKEN: ${{ secrets.protected_branch_reviewer_token }}
           MERGE_METHOD: 'squash'
-          MERGE_COMMIT_MESSAGE: 'Auto approval'
+          MERGE_COMMIT_MESSAGE: 'chore: automerge ci skip update examples with latest version.'
           MERGE_FORKS: 'false'
           MERGE_RETRIES: '6'
           MERGE_RETRY_SLEEP: '10000'
           MERGE_REQUIRED_APPROVALS: '0'
+          MERGE_DELETE_BRANCH: true
+          BASE_BRANCHES: 'main,dev'
 
-      - name: Delete branch after merge
-        if: success()
+      - name: feedback
+        if: ${{ steps.automerge.outputs.mergeResult == 'merged' }}
         run: |
-          curl -X DELETE \
-            -H "Authorization: token ${{ secrets.deploy_token }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/git/refs/heads/${BRANCH_NAME}
+          echo "Pull request ${{ steps.automerge.outputs.pullRequestNumber }} merged!"
