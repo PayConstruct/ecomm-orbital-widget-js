@@ -35,7 +35,7 @@
     "webpack-dev-server": "^3.8.1"
   },
   "dependencies": {
-    "@payperform/widget": "^4.3.10",
+    "@payperform/widget": "latest",
     "dotenv": "^16.4.5"
   }
 }

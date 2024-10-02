@@ -33,7 +33,7 @@
     "rollup-plugin-babel": "^4.3.3"
   },
   "dependencies": {
-    "@payperform/widget": "^4.3.8",
+    "@payperform/widget": "latest",
     "dotenv": "^16.4.5",
     "express": "^4.20.2"
   }
