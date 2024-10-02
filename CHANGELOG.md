@@ -1,3 +1,16 @@
+# v4.3.11 (Wed Oct 02 2024)
+
+#### 🐛 Bug Fix
+
+- chore: remove workflow and install just the latest directly to example [#74](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/74) ([@LOpayperform](https://github.com/LOpayperform))
+- feat: fix branch protection by creating pr workflow [#73](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/73) ([@LOpayperform](https://github.com/LOpayperform))
+
+#### Authors: 1
+
+- Leonardo Louie ([@LOpayperform](https://github.com/LOpayperform))
+
+---
+
 # v4.3.10 (Mon Sep 30 2024)
 
 #### 🐛 Bug Fix
