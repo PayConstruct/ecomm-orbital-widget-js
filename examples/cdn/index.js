@@ -16,6 +16,7 @@ document.getElementById('paymentForm').addEventListener('submit', async function
     firstName: document.getElementById('firstName').value,
     lastName: document.getElementById('lastName').value,
     countryOfResidence: document.getElementById('countryOfResidence').value,
+    locale: document.getElementById('locale').value,
   }
 
   // Hide the form and show the iframe container

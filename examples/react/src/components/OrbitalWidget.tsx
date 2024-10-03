@@ -178,6 +178,21 @@ const OrbitalWidget: React.FC = () => {
                 <option value="PH">Philippines</option>
               </select>
             </div>
+            <div>
+              <label htmlFor="locale" className="block text-sm font-medium text-gray-700">
+                Locale
+              </label>
+              <select
+                id="locale"
+                name="locale"
+                value={formValues.locale}
+                onChange={handleInputChange}
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+              >
+                <option value="en-US">English</option>
+                <option value="ja-JP">Japanese</option>
+              </select>
+            </div>
             <button
               type="submit"
               className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md"

@@ -16,7 +16,7 @@ To run this example locally, follow these steps:
 
 2.  ### Create a .env file under the root directory. Please refer to the .env.example file
 
-3.  ### Serve the file using a local server. You can use any server you prefer. Here’s an example using `http-server`:
+3.  ### Start the server using:
 
     ```bash
     yarn start

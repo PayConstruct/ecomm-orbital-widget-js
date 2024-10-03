@@ -27,4 +27,5 @@ export type FormValues = {
   firstName: string
   lastName: string
   countryOfResidence: string
+  locale?: string
 }
