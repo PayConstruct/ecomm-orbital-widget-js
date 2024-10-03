@@ -2,9 +2,10 @@ const babel = require('rollup-plugin-babel')
 const commonjs = require('@rollup/plugin-commonjs')
 const resolve = require('@rollup/plugin-node-resolve')
 const replace = require('@rollup/plugin-replace')
+const postcss = require('rollup-plugin-postcss')
 require('dotenv').config()
 
-module.exports.default = [
+export default [
   {
     input: 'src/index.js',
     output: {
@@ -21,6 +22,10 @@ module.exports.default = [
       babel({ runtimeHelpers: true }),
       resolve(),
       commonjs(),
+      postcss({
+        extract: true,
+        plugins: [require('tailwindcss'), require('autoprefixer')],
+      }),
     ],
   },
 ]
