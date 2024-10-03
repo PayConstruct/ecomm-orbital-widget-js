@@ -7,6 +7,5 @@
   window.env = {
     API_URL: '',
     API_KEY: '',
-    PAYLOAD: {},
   }
 })()
