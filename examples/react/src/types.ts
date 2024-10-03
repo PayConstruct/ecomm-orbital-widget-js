@@ -6,7 +6,6 @@ export type PayloadType = {
   notifyUrl: string
   primaryColor: string
   secondaryColor: string
-  format: string
   email: string
   externalId: string
   firstName: string
@@ -18,4 +17,14 @@ export type PayloadType = {
 export type SignatureResponse = {
   message?: string
   signature?: string
+}
+
+export type FormValues = {
+  targetAmount: string
+  targetCurrency: string
+  currency: string
+  email: string
+  firstName: string
+  lastName: string
+  countryOfResidence: string
 }
