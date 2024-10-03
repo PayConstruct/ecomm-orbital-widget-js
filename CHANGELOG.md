@@ -1,3 +1,15 @@
+# v4.3.12 (Thu Oct 03 2024)
+
+#### 🐛 Bug Fix
+
+- feat: added example for server and change policy of iframe to allow top navigation [#76](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/76) ([@LOpayperform](https://github.com/LOpayperform))
+
+#### Authors: 1
+
+- Leonardo Louie ([@LOpayperform](https://github.com/LOpayperform))
+
+---
+
 # v4.3.11 (Wed Oct 02 2024)
 
 #### 🐛 Bug Fix
