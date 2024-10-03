@@ -49,7 +49,7 @@ function renderWidget(element: HTMLElement) {
   const subDomain = signature?.includes('transaction-failed') ? signature : `/invoice/widgets?hppEncodedId=${signature}`
   const iframe = document.createElement('iframe')
   iframe.src = `${process.env.BASE_URL}${subDomain}`
-  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin')
+  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-top-navigation')
   iframe.setAttribute('referrerpolicy', 'no-referrer')
   element.innerHTML = ''
   element.appendChild(iframe)
