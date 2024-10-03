@@ -1,24 +1,24 @@
-require('dotenv').config()
 const path = require('path')
-const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
-const env = process.env.NODE_ENV
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: './src/index.js',
-  mode: env,
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js',
+    filename: '[name].[contenthash].bundle.js',
+    clean: true,
     publicPath: '/',
   },
+  mode: process.env.NODE_ENV || 'development',
   devServer: {
-    contentBase: path.join(__dirname, 'public'),
+    static: path.join(__dirname, 'public'),
     compress: true,
     port: 3000,
     hot: true,
+    open: true,
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -29,21 +29,21 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [env === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
       },
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './src/index.html' }),
-    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      inject: 'body',
+    }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
+      filename: '[name].[contenthash].css',
     }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
-      'process.env.API_URL': JSON.stringify(process.env.API_URL),
-    }),
+    new Dotenv(),
   ],
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
 }

@@ -1,7 +1,7 @@
 document.getElementById('paymentForm').addEventListener('submit', async function (event) {
   event.preventDefault()
 
-  // Collect form input values
+  // Collect form input values, hard coded things can be appended in the backend
   const payload = {
     externalId: 'HPP-WEB3-' + new Date().toISOString(),
     returnUrl: 'https://www.getorbital.com/',
@@ -23,7 +23,7 @@ document.getElementById('paymentForm').addEventListener('submit', async function
   document.getElementById('formContainer').classList.add('hidden')
   document.getElementById('orbital').classList.remove('hidden')
 
-  // Fetch the signature and initialize the widget (fetch logic can be added back here if needed)
+  // Fetch the signature and initialize the widget
   try {
     const response = await fetch(window.env.API_URL, {
       method: 'POST',
