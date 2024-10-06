@@ -4,7 +4,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    form: './src/form.js',
+    payment: './src/payment.js',
+    success: './src/success.js',
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].bundle.js',
@@ -18,7 +22,14 @@ module.exports = {
     port: 3000,
     hot: true,
     open: true,
-    historyApiFallback: true,
+    historyApiFallback: {
+      index: '/form.html',
+      rewrites: [
+        { from: /^\/form$/, to: '/form.html' },
+        { from: /^\/payment$/, to: '/payment.html' },
+        { from: /^\/success$/, to: '/success.html' },
+      ],
+    },
   },
   module: {
     rules: [
@@ -35,8 +46,19 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      inject: 'body',
+      template: './src/form.html',
+      filename: 'form.html',
+      chunks: ['form'],
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/payment.html',
+      filename: 'payment.html',
+      chunks: ['payment'],
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/success.html',
+      filename: 'success.html',
+      chunks: ['success'],
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
