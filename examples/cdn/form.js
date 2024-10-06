@@ -1,10 +1,10 @@
 document.getElementById('paymentForm').addEventListener('submit', async function (event) {
   event.preventDefault()
-
+  const externalId = 'HPP-WEB3-' + new Date().toISOString()
   // Collect form input values, hard coded things can be appended in the backend
   const payload = {
-    externalId: 'HPP-WEB3-' + new Date().toISOString(),
-    returnUrl: 'https://www.getorbital.com/',
+    externalId,
+    returnUrl: `http://127.0.0.1:8081/success?externalId=${externalId}`,
     notifyUrl: 'http://notify.com',
     primaryColor: '#4097F6',
     secondaryColor: '#4097F6',
@@ -19,10 +19,6 @@ document.getElementById('paymentForm').addEventListener('submit', async function
     locale: document.getElementById('locale').value,
   }
 
-  // Hide the form and show the iframe container
-  document.getElementById('formContainer').classList.add('hidden')
-  document.getElementById('orbital').classList.remove('hidden')
-
   // Fetch the signature and initialize the widget
   try {
     const response = await fetch(window.env.API_URL, {
@@ -36,18 +32,7 @@ document.getElementById('paymentForm').addEventListener('submit', async function
 
     const data = await response.json()
 
-    if (data.signature) {
-      const orbitalElement = document.getElementById('orbital')
-      orbitalElement.setAttribute('signature', data.signature)
-
-      if (typeof OrbitalWidget !== 'undefined' && typeof OrbitalWidget.init === 'function') {
-        OrbitalWidget.init({
-          container: 'orbital',
-        })
-      } else {
-        console.error('OrbitalWidget was not loaded properly.')
-      }
-    }
+    window.location.href = `payment?signature=${data.signature}`
   } catch (error) {
     console.error('Error fetching signature:', error)
   }
