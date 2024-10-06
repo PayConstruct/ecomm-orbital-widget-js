@@ -1,10 +1,10 @@
 document.getElementById('paymentForm').addEventListener('submit', async function (event) {
   event.preventDefault()
-  const externalId = 'HPP-WEB3-' + new Date().toISOString()
+  const externalId = 'EPP' + new Date().toISOString()
   // Collect form input values, hard coded things can be appended in the backend
   const payload = {
     externalId,
-    returnUrl: `http://127.0.0.1:8081/success?externalId=${externalId}`,
+    returnUrl: `http://127.0.0.1:8081/success?externalId=${encodeURIComponent(externalId)}`,
     notifyUrl: 'http://notify.com',
     primaryColor: '#4097F6',
     secondaryColor: '#4097F6',
@@ -32,7 +32,7 @@ document.getElementById('paymentForm').addEventListener('submit', async function
 
     const data = await response.json()
 
-    window.location.href = `payment?signature=${data.signature}`
+    window.location.href = `payment?signature=${encodeURIComponent(data.signature)}`
   } catch (error) {
     console.error('Error fetching signature:', error)
   }
