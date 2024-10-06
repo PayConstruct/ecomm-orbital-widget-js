@@ -4,11 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/jpeg" href="/orbital.jpeg" />
-    <link rel="stylesheet" href="/index.css" />
+    <link rel="stylesheet" href="/form.css" />
     <title>Embedded Payment Page - Rollup</title>
   </head>
   <body class="bg-gray-100 min-h-screen flex items-center justify-center">
-    <!-- Payment form container -->
     <div id="formContainer" class="max-w-lg w-full bg-white p-6 rounded-lg shadow-md">
       <h2 class="text-2xl font-bold mb-6 text-center">Payment Details</h2>
       <form id="paymentForm" class="space-y-4">
@@ -96,11 +95,8 @@
         </button>
       </form>
     </div>
-
-    <!-- iframe container -->
-    <div id="orbital" class="hidden"></div>
   </body>
-  <script src="/index.js"></script>
-  <!-- for rollup hot reload only -->
+  <script src="/form.js"></script>
+  <!-- optional: for rollup hot reload only-->
   <script src="/reload/reload.js"></script>
 </html>
