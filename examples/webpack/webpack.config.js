@@ -1,24 +1,35 @@
-require('dotenv').config()
 const path = require('path')
-const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
-const env = process.env.NODE_ENV
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
-  entry: './src/index.js',
-  mode: env,
+  entry: {
+    form: './src/form.js',
+    payment: './src/payment.js',
+    success: './src/success.js',
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js',
+    filename: '[name].[contenthash].bundle.js',
+    clean: true,
     publicPath: '/',
   },
+  mode: process.env.NODE_ENV || 'development',
   devServer: {
-    contentBase: path.join(__dirname, 'public'),
+    static: path.join(__dirname, 'public'),
     compress: true,
     port: 3000,
     hot: true,
+    open: true,
+    historyApiFallback: {
+      index: '/form.html',
+      rewrites: [
+        { from: /^\/form$/, to: '/form.html' },
+        { from: /^\/payment$/, to: '/payment.html' },
+        { from: /^\/success$/, to: '/success.html' },
+      ],
+    },
   },
   module: {
     rules: [
@@ -29,21 +40,32 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [env === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
       },
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './src/index.html' }),
-    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      template: './src/form.html',
+      filename: 'form.html',
+      chunks: ['form'],
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/payment.html',
+      filename: 'payment.html',
+      chunks: ['payment'],
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/success.html',
+      filename: 'success.html',
+      chunks: ['success'],
+    }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
+      filename: '[name].[contenthash].css',
     }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
-      'process.env.API_URL': JSON.stringify(process.env.API_URL),
-    }),
+    new Dotenv(),
   ],
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
 }

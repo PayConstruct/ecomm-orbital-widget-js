@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/jpeg" href="/orbital.jpeg" />
+    <link rel="stylesheet" href="/payment.css" />
+    <title>Embedded Payment Page - Rollup</title>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center flex-col">
+    <!-- iframe container -->
+    <div id="orbital" class="iframe-container"></div>
+
+    <!-- alert element -->
+    <div role="alert" id="alert" class="hidden fixed top-4 right-4 w-80">
+      <div class="bg-red-400 text-white font-bold rounded-t px-4 py-2">Error</div>
+      <div
+        class="border border-t-0 border-red-300 rounded-b bg-red-100 px-4 py-3 text-red-600 flex flex-col items-center"
+      >
+        <p class="mb-2 text-center">No signature detected.</p>
+        <a
+          href="/"
+          class="py-1 px-4 border border-red-500 text-red-500 font-bold rounded hover:bg-red-500 hover:text-white transition"
+        >
+          Create payment
+        </a>
+      </div>
+    </div>
+  </body>
+  <script src="/payment.js"></script>
+  <!-- optional: for rollup hot reload only-->
+  <script src="/reload/reload.js"></script>
+</html>

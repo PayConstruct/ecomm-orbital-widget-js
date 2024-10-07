@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/jpeg" href="/orbital.jpeg" />
+    <title>Embedded Payment Page - Webpack</title>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div id="formContainer" class="max-w-lg w-full bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-2xl font-bold mb-6 text-center">Payment Details</h2>
+      <form id="paymentForm" class="space-y-4">
+        <div>
+          <label for="targetAmount" class="block text-sm font-medium text-gray-700">Amount</label>
+          <input
+            type="text"
+            id="targetAmount"
+            name="targetAmount"
+            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            placeholder="100"
+          />
+        </div>
+        <div>
+          <label for="targetCurrency" class="block text-sm font-medium text-gray-700">Target Currency</label>
+          <select
+            id="targetCurrency"
+            name="targetCurrency"
+            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+          >
+            <option value="TST">TST</option>
+          </select>
+        </div>
+        <div>
+          <label for="currency" class="block text-sm font-medium text-gray-700">Currency</label>
+          <select
+            id="currency"
+            name="currency"
+            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+          >
+            <option value="TST">TST</option>
+          </select>
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            placeholder="johndoe@email.com"
+          />
+        </div>
+        <div>
+          <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            placeholder="John"
+          />
+        </div>
+        <div>
+          <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            placeholder="Doe"
+          />
+        </div>
+        <div>
+          <label for="countryOfResidence" class="block text-sm font-medium text-gray-700">Country of Residence</label>
+          <select
+            id="countryOfResidence"
+            name="countryOfResidence"
+            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+          >
+            <option value="US">United States</option>
+            <option value="GB">United Kingdom</option>
+            <option value="CA">Philippines</option>
+          </select>
+        </div>
+        <div>
+          <label for="locale" class="block text-sm font-medium text-gray-700">Locale</label>
+          <select id="locale" name="locale" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm">
+            <option value="en-US">English</option>
+            <option value="ja-JP">Japanese</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md">
+          Submit
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

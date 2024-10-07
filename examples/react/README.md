@@ -14,9 +14,9 @@ To run this example locally, follow these steps:
     cd examples/react
     ```
 
-2.  ### Create a .env file under the root directory, and a config.ts file under the src/config directory. Please refer to the .example file under each folder
+2.  ### Create a .env file under the root directory. Please refer to the .env.example file
 
-3.  ### Serve the file using a local server. You can use any server you prefer. Here’s an example using `http-server`:
+3.  ### Start the server using:
 
     ```bash
     yarn start
