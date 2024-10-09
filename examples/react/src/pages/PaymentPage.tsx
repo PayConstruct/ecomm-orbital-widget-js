@@ -18,7 +18,7 @@ const PaymentPage: React.FC = () => {
       orbitalRef.current.setAttribute('signature', signature)
 
       init({
-        container: 'orbital',
+        container: orbitalRef.current,
       })
     } else {
       console.error('No signature found')
