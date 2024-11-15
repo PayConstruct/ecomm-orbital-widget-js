@@ -53,6 +53,7 @@ function renderWidget(element: HTMLElement) {
   iframe.setAttribute('referrerpolicy', 'no-referrer')
   element.innerHTML = ''
   element.appendChild(iframe)
+  Object.freeze(iframe)
 }
 
 export function cleanup(containerId: string) {
