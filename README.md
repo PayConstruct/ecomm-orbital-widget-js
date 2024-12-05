@@ -25,7 +25,6 @@ Via cdn:
 
 You can also include Orbital Widget using the CDN for faster integration:
 
-
 Use the latest version:
 To always load the most up-to-date version of the widget:
 
@@ -39,7 +38,6 @@ If you want to lock in a particular version of the widget:
 ```html
 <script src="https://widgets.getorbital.io/index-{version}.js"></script>
 ```
-
 
 ## Example (React)
 
@@ -66,7 +64,7 @@ const OrbitalWidget: React.FC = () => {
       orbitalRef.current.setAttribute('signature', signature)
 
       init({
-        container: 'orbital',
+        container: orbitalRef.current,
       })
     }
   }, [signature])
@@ -89,7 +87,7 @@ Once integrated, the widget will automatically embed Orbital's payment page with
 Here’s a simple example of how to integrate the Orbital Widget using vanilla JavaScript. In this example, the signature is fetched from your own backend server. The actual server call has been simplified for clarity.
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -191,3 +189,12 @@ node server.js
 **Fetch Signature**: You can now send a POST request to **/generate-signature** from your frontend application to retrieve the signature needed for the Orbital Widget.
 
 **Note**: This server implementation is not part of the Orbital Widget library, but it provides a necessary backend for users to fetch the required signature.
+
+## Additional security
+**CSP**: We highly suggest you add this line of code to your HTML to ensure you only serve content from Orbital.
+```javascript
+<meta http-equiv="Content-Security-Policy" content="frame-src 'self' https://hpp.getorbital.io/" />
+```
+If you use other iframes aside from our package, ensure that it is also added to the *content* lists of allowed domains.
+
+For more info you can check this [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy)
