@@ -189,3 +189,12 @@ node server.js
 **Fetch Signature**: You can now send a POST request to **/generate-signature** from your frontend application to retrieve the signature needed for the Orbital Widget.
 
 **Note**: This server implementation is not part of the Orbital Widget library, but it provides a necessary backend for users to fetch the required signature.
+
+## Additional security
+**CSP**: We highly suggest you add this line of code to your HTML to ensure you only serve content from Orbital.
+```javascript
+<meta http-equiv="Content-Security-Policy" content="frame-src 'self' https://hpp.getorbital.io/" />
+```
+If you use other iframes aside from our package, ensure that it is also added to the *content* lists of allowed domains.
+
+For more info you can check this [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy)
