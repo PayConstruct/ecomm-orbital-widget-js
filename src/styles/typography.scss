@@ -1,0 +1,42 @@
+@font-face {
+  font-family: 'Neue Haas Grotesk Text Pro';
+  src: url('https://s3.ap-southeast-1.amazonaws.com/app.tst.paymero.io/fonts/NeueHaasGroteskTextPro/NeueHaasGroteskTextProBold.woff2')
+    format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Neue Haas Grotesk Text Pro';
+  src: url('https://s3.ap-southeast-1.amazonaws.com/app.tst.paymero.io/fonts/NeueHaasGroteskTextPro/NeueHaasGroteskTextProRegular.woff2')
+    format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Neue Haas Grotesk Text Pro';
+  src: url('https://s3.ap-southeast-1.amazonaws.com/app.tst.paymero.io/fonts/NeueHaasGroteskTextPro/NeueHaasGroteskTextProItalic.woff2')
+    format('woff2');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Neue Haas Grotesk Text Pro';
+  src: url('https://s3.ap-southeast-1.amazonaws.com/app.tst.paymero.io/fonts/NeueHaasGroteskTextPro/NeueHaasGroteskTextProBoldItalic.woff2')
+    format('woff2');
+  font-weight: bold;
+  font-style: italic;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span {
+  font-family: 'Neue Haas Grotesk Text Pro', sans-serif;
+}

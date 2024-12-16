@@ -1,10 +1,12 @@
-export interface InitOptions {
-  container: string | string[] | HTMLElement | HTMLElement[]
-}
-
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import { InitOptions } from './types'
+import Button from './components/Button'
+import Iframe from './components/Iframe'
 const containers: { [key: string]: MutationObserver } = {}
 
-export function init({ container }: InitOptions): void {
+export function init(options: InitOptions): void {
+  const { container } = options
   const containerElements = Array.isArray(container) ? container : [container]
 
   containerElements.forEach(container => {
@@ -12,47 +14,57 @@ export function init({ container }: InitOptions): void {
       // For IDs (vanilla JS)
       const element = document.getElementById(container)
       if (element) {
-        setupContainer(element)
+        setupContainer({ ...options, container: element })
       } else {
         console.warn(`Container with ID ${container} not found.`)
       }
     } else if (container instanceof HTMLElement) {
       // For direct HTML elements (e.g: React refs current)
-      setupContainer(container)
+      setupContainer({ ...options, container })
     } else {
       console.warn('Provided container is neither a string nor an HTMLElement.')
     }
   })
 }
 
-function setupContainer(container: HTMLElement) {
+function setupContainer(options: InitOptions) {
+  const { container } = options
+  const containerElement = container as HTMLElement
   const observer = new MutationObserver(mutations => {
     mutations.forEach(mutation => {
       if (mutation.type === 'attributes' && mutation.attributeName === 'signature') {
         const target = mutation.target as HTMLElement
-        renderWidget(target)
+        renderWidget({ ...options, container: target })
       }
     })
   })
 
-  renderWidget(container)
-  observer.observe(container, { attributes: true })
-  containers[container.id] = observer
+  renderWidget({ ...options, container: containerElement })
+  observer.observe(containerElement, { attributes: true })
+  containers[containerElement.id] = observer
 }
 
-function renderWidget(element: HTMLElement) {
-  const signature = element.getAttribute('signature')
-  if (!signature) {
-    console.warn('No signature provided.')
-    return
+function renderWidget(options: InitOptions) {
+  try {
+    const { container, mode } = options
+    const { button } = options
+    const containerElement = container as HTMLElement
+    const signature = containerElement.getAttribute('signature') || ''
+    const root = createRoot(containerElement)
+    if (mode === 'small-widgets' && button?.container) {
+      let buttonContainer = button.container as HTMLElement
+      if (typeof button.container === 'string') {
+        buttonContainer = document.getElementById(button.container) as HTMLElement
+      }
+
+      const buttonRoot = createRoot(buttonContainer)
+      buttonRoot.render(React.createElement(Button, { ...button, signature, container: containerElement }))
+    } else {
+      root.render(React.createElement(Iframe, { signature }))
+    }
+  } catch (e) {
+    console.error(e)
   }
-  const subDomain = signature?.includes('transaction-failed') ? signature : `/invoice/widgets?hppEncodedId=${signature}`
-  const iframe = document.createElement('iframe')
-  iframe.src = `${process.env.BASE_URL}${subDomain}`
-  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-top-navigation')
-  iframe.setAttribute('referrerpolicy', 'no-referrer')
-  element.innerHTML = ''
-  element.appendChild(iframe)
 }
 
 export function cleanup(containerId: string) {
