@@ -7,6 +7,7 @@ import BlackRedWordIcon from '../../assets/logo-word-black-red.svg'
 import BlackWhiteWordIcon from '../../assets/logo-word-black-white.svg'
 import WhiteRedWordIcon from '../../assets/logo-word-white-red.svg'
 import { InitOptions } from '../../types'
+import { useIframeContext } from '../../context/IframeContext'
 
 type IconType = {
   icon: string
@@ -28,7 +29,8 @@ function getIcons({ color }: NonNullable<InitOptions['button']>): IconType {
   }
 }
 
-const LogoIcon: React.FC<NonNullable<InitOptions['button']>> = ({ color, logoOnly }) => {
+const LogoIcon = () => {
+  const { color, logoOnly } = useIframeContext().options?.button || {}
   const [icons, setIcons] = useState<IconType>(getIcons({ color }))
   useEffect(() => {
     setIcons(getIcons({ color }))

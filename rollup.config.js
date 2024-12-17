@@ -62,6 +62,6 @@ export default [
   {
     input: 'src/types/index.d.ts',
     output: [{ file: 'dist/types/index.d.ts', format: 'es' }],
-    plugins: [dts(), del({ hook: 'buildEnd', targets: './dist/components' })],
+    plugins: [dts(), del({ hook: 'buildEnd', targets: ['./dist/components', './dist/context'] })],
   },
 ]

@@ -1,8 +1,3 @@
-export type IframeOptions = {
-  signature: string
-  container?: HTMLElement
-}
-
 export type InitOptions = {
   container: string | string[] | HTMLElement | HTMLElement[]
   mode?: 'iframe-only' | 'small-widgets'

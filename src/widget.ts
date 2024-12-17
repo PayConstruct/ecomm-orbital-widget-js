@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { InitOptions } from './types'
 import Button from './components/Button'
 import Iframe from './components/Iframe'
+import { IframeProvider } from './context/IframeContext'
 const containers: { [key: string]: MutationObserver } = {}
 
 export function init(options: InitOptions): void {
@@ -58,9 +59,21 @@ function renderWidget(options: InitOptions) {
       }
 
       const buttonRoot = createRoot(buttonContainer)
-      buttonRoot.render(React.createElement(Button, { ...button, signature, container: containerElement }))
+      buttonRoot.render(
+        React.createElement(IframeProvider, {
+          children: React.createElement(Button),
+          initialOptions: options,
+          signature,
+        })
+      )
     } else {
-      root.render(React.createElement(Iframe, { signature }))
+      root.render(
+        React.createElement(IframeProvider, {
+          children: React.createElement(Iframe),
+          initialOptions: options,
+          signature,
+        })
+      )
     }
   } catch (e) {
     console.error(e)

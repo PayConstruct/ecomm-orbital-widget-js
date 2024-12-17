@@ -1,44 +1,27 @@
-import { useEffect, useState } from 'react'
-import { IframeOptions } from '../../types'
 import styles from './Iframe.module.scss'
 import { createPortal } from 'react-dom'
 import Loader from '../Loader'
-const Iframe: React.FC<IframeOptions> = ({ signature, container }) => {
-  const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [subDomain, setSubDomain] = useState<string>(signature)
-  useEffect(() => {
-    if (!signature) {
-      console.warn('No signature provided.')
-      setError('No signature provided.')
-      return
-    }
+import { useIframeContext } from '../../context/IframeContext'
+import BaseFrame from './BaseFrame'
+import CloseButton from '../Loader/CloseButton'
 
-    setSubDomain(signature?.includes('transaction-failed') ? signature : `invoice/widgets?hppEncodedId=${signature}`)
-  }, [signature])
+const Iframe = () => {
+  const { setIsOpen, signature, options, isLoading } = useIframeContext()
+  const { container: containerOption, mode } = options
+  const container = containerOption as HTMLElement
 
   const iframeElement = (
     <>
-      {(error || !signature) && <div>{error}</div>}
       {isLoading && <Loader />}
-      {!error && signature && (
-        <iframe
-          src={`${process.env.BASE_URL}/${subDomain}`}
-          sandbox="allow-scripts allow-same-origin allow-top-navigation"
-          referrerPolicy="no-referrer"
-          className={styles.iframe}
-          style={isLoading ? { display: 'none' } : {}}
-          onLoad={() => {
-            setIsLoading(false)
-          }}
-        />
+      {signature && (
+        <div className={styles['iframe']} style={isLoading ? { display: 'none' } : {}}>
+          <CloseButton />
+          <BaseFrame />
+        </div>
       )}
     </>
   )
-  if (container) {
-    return createPortal(iframeElement, container)
-  }
-  return iframeElement
+  return container && mode === 'small-widgets' ? createPortal(iframeElement, container) : <BaseFrame />
 }
 
 export default Iframe

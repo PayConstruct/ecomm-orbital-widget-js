@@ -1,13 +1,11 @@
-import React from 'react'
 import styles from './Loader.module.scss'
-import CloseIcon from '../../assets/close.svg'
-import LogoIcon from '../Icon'
+import CloseButton from './CloseButton'
 const Loader = () => {
   return (
     <div className={styles['loader']}>
       <div className={styles['loader-header']}>
         <h1> Pay with your wallet</h1>
-        <img src={CloseIcon} alt="close-icon" />
+        <CloseButton />
       </div>
       <div className={styles['loader-content']}>
         <div className={styles['loader-content__bg']}>
