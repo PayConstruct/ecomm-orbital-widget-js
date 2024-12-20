@@ -3,11 +3,12 @@
 .iframe {
   width: 100%;
   height: 100%;
+  max-width: 420px;
+  max-height: 500px;
+  position: relative;
+  border-radius: 10px;
   border: 1px solid s.$gray-100;
   background: s.$gray-50;
-  max-width: 420px;
-  border-radius: 10px;
-  position: relative;
   img {
     position: absolute;
     top: 28px;
@@ -17,5 +18,6 @@
   &-content {
     width: 100%;
     height: 100%;
+    border-radius: 10px;
   }
 }

@@ -23,7 +23,7 @@ const Button = () => {
           }
         }}
       >
-        <span>Deposit with Crypto</span>
+        <span>Deposit Crypto with</span>
         <LogoIcon />
       </button>
       {isOpen && <Iframe key={isOpen ? 'iframe-open' : 'iframe-closed'} />}

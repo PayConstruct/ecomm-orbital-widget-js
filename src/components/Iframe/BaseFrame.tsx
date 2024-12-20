@@ -3,7 +3,11 @@ import styles from './Iframe.module.scss'
 import { useIframeContext } from '../../context/IframeContext'
 
 const BaseFrame = () => {
-  const { signature, setIsLoading } = useIframeContext()
+  const {
+    signature,
+    setIsLoading,
+    options: { mode },
+  } = useIframeContext()
   const [subDomain, setSubDomain] = useState<string>(signature)
 
   useEffect(() => {
@@ -11,8 +15,10 @@ const BaseFrame = () => {
       console.warn('No signature provided.')
       return
     }
-
-    setSubDomain(signature?.includes('transaction-failed') ? signature : `invoice/widgets?hppEncodedId=${signature}`)
+    const widgetSize = mode === 'small-widgets' ? `&widgetSize=small` : ''
+    setSubDomain(
+      signature?.includes('transaction-failed') ? signature : `invoice/widgets?hppEncodedId=${signature}${widgetSize}`
+    )
   }, [signature])
 
   return (
