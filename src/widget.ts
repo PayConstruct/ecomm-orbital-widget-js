@@ -51,6 +51,10 @@ function renderWidget(options: InitOptions) {
     const { button } = options
     const containerElement = container as HTMLElement
     const signature = containerElement.getAttribute('signature') || ''
+    if (!signature) {
+      console.warn('No signature provided.')
+    }
+
     const root = createRoot(containerElement)
     if (mode === 'small-widgets' && button?.container) {
       let buttonContainer = button.container as HTMLElement
