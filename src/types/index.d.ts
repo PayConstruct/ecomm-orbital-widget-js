@@ -9,14 +9,4 @@ export type InitOptions = {
     width?: string
     height?: string
   }
-  /**
-   * @deprecated
-   * This feature is still in progress and will not work as expected.
-   */
-  cashier?: {
-    currency?: string
-    defaultPrices?: [string, string, string, string]
-    title?: string
-    subTitle?: string
-  }
 }

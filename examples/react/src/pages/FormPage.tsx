@@ -8,9 +8,9 @@ const FormPage: React.FC = () => {
     targetAmount: '20',
     targetCurrency: 'TST',
     currency: 'TST',
-    email: 'neilzon.calosa@getorbital.com',
-    firstName: 'Neilzon',
-    lastName: 'Calosa',
+    email: 'johndoe@getorbital.com',
+    firstName: 'John',
+    lastName: 'Doe',
     countryOfResidence: 'US',
   })
   const navigate = useNavigate()
@@ -32,9 +32,9 @@ const FormPage: React.FC = () => {
       secondaryColor: '#4097F6',
       nameType: 'legal',
       targetAmount: '100',
-      email: 'neilzon.calosa@getorbital.com',
-      firstName: 'Neilzon',
-      lastName: 'Calosa',
+      email: 'johndoe@getorbital.com',
+      firstName: 'John',
+      lastName: 'Doe',
     }
 
     try {
@@ -106,7 +106,7 @@ const FormPage: React.FC = () => {
             value={formValues.email}
             onChange={handleInputChange}
             className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-            placeholder="you@example.com"
+            placeholder="johndoe@email.com"
           />
         </div>
 
