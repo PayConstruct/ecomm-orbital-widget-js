@@ -39,9 +39,31 @@ If you want to lock in a particular version of the widget:
 <script src="https://widgets.getorbital.io/index-{version}.js"></script>
 ```
 
+## Properties
+
+| **Property**             | **Type**                                                                                                                                                  | **Description**                                                                                                                                          |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `container`              | `string \| string[] \| HTMLElement \| HTMLElement[]`                                                                                                      | The container(s) where the widget will be initialized. Can be a single string, an array of strings, or a single HTMLElement or an array of HTMLElements. |
+| `mode`                   | `'iframe-only' \| 'small-widgets'`                                                                                                                        | Defines the mode for the widget. If not provided, defaults to `'iframe-only'`.                                                                           |
+| `button`                 | `{ color?: string; logoOnly?: boolean; container?: string \| HTMLElement; onClickCallback?: (...args: any[]) => void; width?: string; height?: string; }` | Configurations for the button, including its color, size, callback, and whether to show only the logo. Only available for `'small-widgets'`              |
+| `button.color`           | `'white-black' \| 'black-white' \| 'red-white' \| 'red-black' \| 'blue-white'`                                                                            | Button color schemes.                                                                                                                                    |
+| `button.logoOnly`        | `boolean`                                                                                                                                                 | If `true`, will use the text based logo.                                                                                                                 |
+| `button.container`       | `string \| HTMLElement`                                                                                                                                   | The container for the button, either by ID (string) or directly as an HTMLElement.                                                                       |
+| `button.onClickCallback` | `(...args: any[]) => void`                                                                                                                                | A callback function triggered when the button is clicked.                                                                                                |
+| `button.width`           | `string`                                                                                                                                                  | The width of the button (CSS units). Added to the style tag                                                                                              |
+| `button.height`          | `string`                                                                                                                                                  | The height of the button (CSS units). Added to the style tag                                                                                             |
+
 ## Example (React)
 
-Here’s a simplified example of how you can integrate the Orbital Widget in a React application. This version focuses on embedding the widget, and the signature should be fetched from your own backend server.
+Here’s a simplified example of how you can integrate the Orbital Widget in a React application. This version focuses on embedding the widget, and the signature should be fetched from your own backend server it also uses `mode: iframe-only` (default mode of the package and does not explicitly needed to be defined).
+
+### index.html
+
+```tsx
+<head>
+  <meta http-equiv="Content-Security-Policy" content="frame-src 'self' http://hpp.getorbital.io/" />
+</head>
+```
 
 ```tsx
 import React, { useEffect, useState, useRef } from 'react'
@@ -84,14 +106,15 @@ Once integrated, the widget will automatically embed Orbital's payment page with
 
 ## Example (Vanilla JavaScript)
 
-Here’s a simple example of how to integrate the Orbital Widget using vanilla JavaScript. In this example, the signature is fetched from your own backend server. The actual server call has been simplified for clarity.
+Here’s a simple example of how to integrate the Orbital Widget using vanilla JavaScript. In this example, the signature is fetched from your own backend server and using `mode: iframe-only` (default mode of the package and does not explicitly needed to be defined). The actual server call has been simplified for clarity.
 
-```html
+```tsx
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="frame-src 'self' http://hpp.getorbital.io/" />
     <title>Orbital Widget Example</title>
   </head>
   <body>
@@ -191,10 +214,13 @@ node server.js
 **Note**: This server implementation is not part of the Orbital Widget library, but it provides a necessary backend for users to fetch the required signature.
 
 ## Additional security
+
 **CSP**: We highly suggest you add this line of code to your HTML to ensure you only serve content from Orbital.
+
 ```javascript
 <meta http-equiv="Content-Security-Policy" content="frame-src 'self' https://hpp.getorbital.io/" />
 ```
-If you use other iframes aside from our package, ensure that it is also added to the *content* lists of allowed domains.
+
+If you use other iframes aside from our package, ensure that it is also added to the _content_ lists of allowed domains.
 
 For more info you can check this [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy)
