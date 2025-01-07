@@ -1,3 +1,16 @@
+# v4.3.14 (Thu Dec 05 2024)
+
+#### 🐛 Bug Fix
+
+- chore: update examples [#80](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/80) ([@LOpayperform](https://github.com/LOpayperform) [@NeilzonC](https://github.com/NeilzonC))
+
+#### Authors: 2
+
+- Leonardo Louie ([@LOpayperform](https://github.com/LOpayperform))
+- Neilzon ([@NeilzonC](https://github.com/NeilzonC))
+
+---
+
 # v4.3.13 (Mon Oct 07 2024)
 
 #### 🐛 Bug Fix

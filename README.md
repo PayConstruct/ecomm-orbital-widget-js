@@ -61,7 +61,7 @@ Here’s a simplified example of how you can integrate the Orbital Widget in a R
 
 ```tsx
 <head>
-  <meta http-equiv="Content-Security-Policy" content="frame-src 'self' http://hpp.getorbital.io/" />
+  <meta http-equiv="Content-Security-Policy" content="frame-src 'self' https://hpp.getorbital.io/" />
 </head>
 ```
 
@@ -114,7 +114,7 @@ Here’s a simple example of how to integrate the Orbital Widget using vanilla J
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="frame-src 'self' http://hpp.getorbital.io/" />
+    <meta http-equiv="Content-Security-Policy" content="frame-src 'self' https://hpp.getorbital.io/" />
     <title>Orbital Widget Example</title>
   </head>
   <body>
