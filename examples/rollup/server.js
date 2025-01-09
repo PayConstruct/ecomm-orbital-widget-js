@@ -3,7 +3,7 @@ const path = require('path')
 const reload = require('reload')
 
 const app = express()
-const port = 3000
+const port = 3001
 
 // Serve static files
 app.use(express.static('public'))
