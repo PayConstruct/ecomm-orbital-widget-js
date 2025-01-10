@@ -79,7 +79,8 @@
     "sass": "^1.82.0"
   },
   "files": [
-    "dist"
+    "dist",
+    "lib"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
