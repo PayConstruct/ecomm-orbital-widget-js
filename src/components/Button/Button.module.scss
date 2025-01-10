@@ -1,6 +1,7 @@
 @use '../../styles/typography.scss';
 @use '../../styles//settings.scss' as s;
 .button {
+  border: none;
   border-radius: 5px;
   display: flex;
   align-items: center;
