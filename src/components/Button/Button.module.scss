@@ -1,0 +1,36 @@
+@use '../../styles/typography.scss';
+@use '../../styles//settings.scss' as s;
+.button {
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 12px;
+  color: s.$gray-800;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  &.white-black {
+    border: 1px solid s.$gray-100;
+    background-color: s.$white;
+  }
+  &.black-white {
+    background-color: s.$gray-700;
+    color: s.$white;
+  }
+  &.red-white {
+    background-color: s.$primary-color;
+    color: s.$white;
+  }
+  &.red-black {
+    background-color: s.$primary-color;
+  }
+  &.blue-white {
+    background-color: s.$secondary-color;
+    color: s.$white;
+  }
+}

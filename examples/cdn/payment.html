@@ -10,11 +10,65 @@
     <link rel="icon" type="image/jpeg" href="orbital.jpeg" />
     <script src="https://widgets.getorbital.io/index-latest.js" async></script>
   </head>
-  <body class="bg-gray-100 min-h-screen flex items-center justify-center flex-col">
-    <!-- iframe container -->
-    <div id="orbital" class="iframe-container"></div>
+  <body class="bg-gray-100 min-h-screen p-8 flex justify-center items-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-7xl border border-gray-200 flex flex-col w-11/12 h-[90vh]">
+      <!-- Tab Navigation -->
+      <div class="flex justify-center border-b border-gray-300 mb-4">
+        <button id="small-widgets-tab" class="px-6 py-2 font-semibold border-b-4 border-blue-500 text-blue-500">
+          Smaller Widgets
+        </button>
+        <button id="iframe-only-tab" class="px-6 py-2 font-semibold text-gray-600">Iframe Only</button>
+      </div>
 
-    <!-- Alert element for no signature -->
+      <!-- Tab Content -->
+      <div class="flex-grow overflow-y-auto">
+        <!-- Smaller Widgets Tab -->
+        <div id="small-widgets-content" style="height: 100%">
+          <div class="flex flex-col items-center md:space-x-6 space-y-6 md:space-y-0 gap-10">
+            <!-- Payment Selections -->
+            <div class="flex items-center gap-3 w-full">
+              <div id="orbital-button-container" class="w-full"></div>
+              <button
+                id="apple-pay-button"
+                class="w-full bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-md focus:ring-4 focus:ring-gray-300 flex justify-center items-center gap-3"
+              >
+                <span>Apple Pay</span>
+              </button>
+              <button
+                id="google-pay-button"
+                class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-6 rounded-md focus:ring-4 focus:ring-yellow-300 flex justify-center items-center gap-3"
+              >
+                <span>Google Pay</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div class="w-full h-[1px] bg-gray-300 hidden md:block my-4"></div>
+
+          <!-- Payment Details Section -->
+          <div class="flex justify-center items-center h-[85%]">
+            <div
+              id="orbital"
+              class="w-full h-full border border-gray-200 rounded-lg overflow-auto bg-white box-border flex flex-col justify-center items-center p-3 hidden"
+            ></div>
+            <p id="payment-placeholder" class="text-gray-600 text-center">
+              Payment details will appear here once a payment method is selected.
+            </p>
+          </div>
+        </div>
+
+        <!-- Iframe Only Tab -->
+        <div id="iframe-only-content" class="hidden" style="height: 100%">
+          <div
+            id="orbital-iframe"
+            class="w-full h-full border border-gray-200 rounded-lg overflow-auto bg-white box-border flex flex-col justify-center items-center"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alert Element -->
     <div role="alert" id="alert" class="hidden fixed top-4 right-4 w-80">
       <div class="bg-red-400 text-white font-bold rounded-t px-4 py-2">Error</div>
       <div
@@ -29,6 +83,6 @@
         </a>
       </div>
     </div>
+    <script src="payment.js"></script>
   </body>
-  <script src="payment.js"></script>
 </html>

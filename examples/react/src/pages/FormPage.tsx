@@ -5,12 +5,12 @@ import 'tailwindcss/tailwind.css'
 
 const FormPage: React.FC = () => {
   const [formValues, setFormValues] = useState<FormValues>({
-    targetAmount: '',
+    targetAmount: '20',
     targetCurrency: 'TST',
     currency: 'TST',
-    email: '',
-    firstName: '',
-    lastName: '',
+    email: 'johndoe@getorbital.com',
+    firstName: 'John',
+    lastName: 'Doe',
     countryOfResidence: 'US',
   })
   const navigate = useNavigate()
@@ -24,13 +24,17 @@ const FormPage: React.FC = () => {
     e.preventDefault()
     const externalId = 'EPP' + new Date().toISOString()
     const payload: PayloadType = {
+      ...formValues,
       externalId,
       returnUrl: `http://localhost:5173/success?externalId=${encodeURIComponent(externalId)}`,
       notifyUrl: 'http://notify.com',
       primaryColor: '#4097F6',
       secondaryColor: '#4097F6',
       nameType: 'legal',
-      ...formValues,
+      targetAmount: '100',
+      email: 'johndoe@getorbital.com',
+      firstName: 'John',
+      lastName: 'Doe',
     }
 
     try {
@@ -53,9 +57,14 @@ const FormPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-full max-w-lg space-y-4">
-        <h2 className="text-2xl font-bold mb-4 text-center">Payment Details</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-blue-50">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg space-y-6 border border-gray-200"
+      >
+        <h2 className="text-3xl font-bold text-center text-blue-600">Deposit Details</h2>
+        <p className="text-sm text-center text-gray-500">Fill out the form below to proceed with your payment.</p>
+
         <div>
           <label htmlFor="targetAmount" className="block text-sm font-medium text-gray-700">
             Amount
@@ -66,10 +75,11 @@ const FormPage: React.FC = () => {
             name="targetAmount"
             value={formValues.targetAmount}
             onChange={handleInputChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-            placeholder="100"
+            className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter amount"
           />
         </div>
+
         <div>
           <label htmlFor="targetCurrency" className="block text-sm font-medium text-gray-700">
             Target Currency
@@ -79,25 +89,12 @@ const FormPage: React.FC = () => {
             name="targetCurrency"
             value={formValues.targetCurrency}
             onChange={handleInputChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="TST">TST</option>
           </select>
         </div>
-        <div>
-          <label htmlFor="currency" className="block text-sm font-medium text-gray-700">
-            Currency
-          </label>
-          <select
-            id="currency"
-            name="currency"
-            value={formValues.currency}
-            onChange={handleInputChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-          >
-            <option value="TST">TST</option>
-          </select>
-        </div>
+
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700">
             Email
@@ -108,10 +105,11 @@ const FormPage: React.FC = () => {
             name="email"
             value={formValues.email}
             onChange={handleInputChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             placeholder="johndoe@email.com"
           />
         </div>
+
         <div>
           <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
             First Name
@@ -122,10 +120,11 @@ const FormPage: React.FC = () => {
             name="firstName"
             value={formValues.firstName}
             onChange={handleInputChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             placeholder="John"
           />
         </div>
+
         <div>
           <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
             Last Name
@@ -136,10 +135,11 @@ const FormPage: React.FC = () => {
             name="lastName"
             value={formValues.lastName}
             onChange={handleInputChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             placeholder="Doe"
           />
         </div>
+
         <div>
           <label htmlFor="countryOfResidence" className="block text-sm font-medium text-gray-700">
             Country of Residence
@@ -149,33 +149,19 @@ const FormPage: React.FC = () => {
             name="countryOfResidence"
             value={formValues.countryOfResidence}
             onChange={handleInputChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="US">United States</option>
             <option value="GB">United Kingdom</option>
             <option value="PH">Philippines</option>
           </select>
         </div>
-        <div>
-          <label htmlFor="locale" className="block text-sm font-medium text-gray-700">
-            Locale
-          </label>
-          <select
-            id="locale"
-            name="locale"
-            value={formValues.locale}
-            onChange={handleInputChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-          >
-            <option value="en-US">English</option>
-            <option value="ja-JP">Japanese</option>
-          </select>
-        </div>
+
         <button
           type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md"
+          className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-md focus:ring-4 focus:ring-blue-300"
         >
-          Submit
+          Proceed to Payment
         </button>
       </form>
     </div>

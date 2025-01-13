@@ -8,17 +8,20 @@
     <title>Embedded Payment Page - Rollup</title>
   </head>
   <body class="bg-gray-100 min-h-screen flex items-center justify-center">
-    <div id="formContainer" class="max-w-lg w-full bg-white p-6 rounded-lg shadow-md">
-      <h2 class="text-2xl font-bold mb-6 text-center">Payment Details</h2>
-      <form id="paymentForm" class="space-y-4">
+    <!-- Payment form container -->
+    <div id="formContainer" class="max-w-lg w-full bg-white p-8 rounded-lg shadow-lg">
+      <h2 class="text-3xl font-bold mb-4 text-center text-blue-600">Deposit Details</h2>
+      <p class="text-sm text-center text-gray-500 mb-6">Fill out the form below to proceed with your payment.</p>
+      <form id="paymentForm" class="space-y-6">
         <div>
           <label for="targetAmount" class="block text-sm font-medium text-gray-700">Amount</label>
           <input
             type="text"
             id="targetAmount"
             name="targetAmount"
-            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-            placeholder="100"
+            value="20"
+            class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter amount"
           />
         </div>
         <div>
@@ -26,19 +29,9 @@
           <select
             id="targetCurrency"
             name="targetCurrency"
-            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
           >
-            <option value="TST">TST</option>
-          </select>
-        </div>
-        <div>
-          <label for="currency" class="block text-sm font-medium text-gray-700">Currency</label>
-          <select
-            id="currency"
-            name="currency"
-            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-          >
-            <option value="TST">TST</option>
+            <option value="TST" selected>TST</option>
           </select>
         </div>
         <div>
@@ -47,7 +40,8 @@
             type="email"
             id="email"
             name="email"
-            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            value="johndoe@getorbital.com"
+            class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             placeholder="johndoe@email.com"
           />
         </div>
@@ -57,7 +51,8 @@
             type="text"
             id="firstName"
             name="firstName"
-            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            value="John"
+            class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             placeholder="John"
           />
         </div>
@@ -67,7 +62,8 @@
             type="text"
             id="lastName"
             name="lastName"
-            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            value="Doe"
+            class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             placeholder="Doe"
           />
         </div>
@@ -76,22 +72,18 @@
           <select
             id="countryOfResidence"
             name="countryOfResidence"
-            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
           >
-            <option value="US">United States</option>
+            <option value="US" selected>United States</option>
             <option value="GB">United Kingdom</option>
-            <option value="CA">Philippines</option>
+            <option value="PH">Philippines</option>
           </select>
         </div>
-        <div>
-          <label for="locale" class="block text-sm font-medium text-gray-700">Locale</label>
-          <select id="locale" name="locale" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm">
-            <option value="en-US">English</option>
-            <option value="ja-JP">Japanese</option>
-          </select>
-        </div>
-        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md">
-          Submit
+        <button
+          type="submit"
+          class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-md focus:ring-4 focus:ring-blue-300"
+        >
+          Proceed to Payment
         </button>
       </form>
     </div>
