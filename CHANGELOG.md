@@ -1,3 +1,16 @@
+# v5.0.0 (Mon Jan 13 2025)
+
+#### 💥 Breaking Change
+
+- feat: add support for smaller widgets [#83](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/83) ([@LOpayperform](https://github.com/LOpayperform) [@NeilzonC](https://github.com/NeilzonC))
+
+#### Authors: 2
+
+- Leonardo Louie ([@LOpayperform](https://github.com/LOpayperform))
+- Neilzon ([@NeilzonC](https://github.com/NeilzonC))
+
+---
+
 # v4.3.14 (Thu Dec 05 2024)
 
 #### 🐛 Bug Fix
