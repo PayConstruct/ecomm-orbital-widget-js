@@ -51,7 +51,7 @@ const PaymentPage: React.FC = () => {
           </button>
           <button
             onClick={() => {
-              setSelectedTab('iframe-only'), setSelectedPayment(null)
+              ;(setSelectedTab('iframe-only'), setSelectedPayment(null))
             }}
             className={`px-6 py-2 font-semibold ${
               selectedTab === 'iframe-only' ? 'border-b-4 border-blue-500 text-blue-500' : 'text-gray-600'
