@@ -1,6 +1,6 @@
 {
   "name": "@payperform/widget",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Orbital Widgets for fast and seamless payment processing",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
