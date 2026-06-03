@@ -1,0 +1,32 @@
+name: Dependabot Auto-Merge
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [dev]
+
+concurrency:
+  group: dependabot-auto-merge-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: write
+  issues: write
+  security-events: read
+
+jobs:
+  auto-merge:
+    name: Dependabot Auto-Merge
+    if: github.actor == 'dependabot[bot]'
+    uses: PayConstruct/github-actions-workflows/.github/workflows/dependabot-auto-merge.yml@main
+    with:
+      branches: "dev"
+      critical-reviewers-teams: "crypto-team"
+      enable-auto-merge: true
+      enable-slack-notifications: true
+    secrets:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+      ORBITAL_GITHUB_BOT_TOKEN: ${{ secrets.ORBITAL_GITHUB_BOT_TOKEN }}
