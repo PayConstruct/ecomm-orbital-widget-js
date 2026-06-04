@@ -1,0 +1,31 @@
+name: Dependabot Slack Notifications
+
+on:
+  pull_request:
+    types: [opened, closed, reopened]
+    branches: [dev]
+  pull_request_review:
+    types: [submitted]
+  workflow_run:
+    workflows: ["Dependabot Auto-Merge"]
+    types: [completed]
+  schedule:
+    - cron: "0 12 * * MON" # Every Monday at noon UTC
+
+jobs:
+  notify:
+    name: Dependabot Notifications
+    if: >
+      github.event_name == 'schedule' ||
+      github.event_name == 'workflow_run' ||
+      github.actor == 'dependabot[bot]' ||
+      (github.event_name == 'pull_request_review' && github.event.pull_request.user.login == 'dependabot[bot]')
+    uses: PayConstruct/github-actions-workflows/.github/workflows/dependabot-slack-notifications.yml@main
+    with:
+      branches: "dev"
+      validation-workflows: "Dependabot Auto-Merge"
+      weekly-summary-schedule: "0 12 * * MON"
+      trigger-weekly-summary: ${{ github.event_name == 'schedule' }}
+    secrets:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
