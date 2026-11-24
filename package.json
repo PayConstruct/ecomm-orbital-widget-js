@@ -62,21 +62,21 @@
     "rollup-plugin-delete": "^2.1.0",
     "rollup-plugin-dts": "^6.2.3",
     "rollup-plugin-postcss": "^4.0.2",
-    "ts-jest": "^29.4.1",
+    "ts-jest": "^29.4.15",
     "ts-loader": "^9.5.2",
     "typescript": "^5.9.2",
-    "webpack": "^5.101.3",
+    "webpack": "^5.113.0",
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.864.0",
-    "@aws-sdk/lib-storage": "^3.864.0",
-    "@aws-sdk/s3-request-presigner": "^3.864.0",
-    "@aws-sdk/util-create-request": "^3.862.0",
+    "@aws-sdk/client-s3": "^3.1176.0",
+    "@aws-sdk/lib-storage": "^3.1176.0",
+    "@aws-sdk/s3-request-presigner": "^3.1176.0",
+    "@aws-sdk/util-create-request": "^3.972.49",
     "dotenv": "^17.2.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "sass": "^1.90.0"
+    "sass": "^1.108.2"
   },
   "files": [
     "dist",
