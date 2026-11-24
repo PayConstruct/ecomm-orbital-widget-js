@@ -1,29 +1,35 @@
+import { describe, it, expect, beforeEach, afterEach, vi, type Mock, type MockInstance } from 'vitest'
 import { init, cleanup } from '../src/widget'
 
 describe('Widget Module', () => {
-  let mockGetElementById: jest.SpyInstance
-  let mockMutationObserver: jest.Mock
-  let mockWarn: jest.SpyInstance
+  let mockGetElementById: MockInstance
+  let mockMutationObserver: Mock
+  let mockWarn: MockInstance
 
   beforeEach(() => {
-    mockGetElementById = jest.spyOn(document, 'getElementById')
-    mockMutationObserver = jest.fn(() => ({
-      observe: jest.fn(),
-      disconnect: jest.fn(),
-    }))
+    mockGetElementById = vi.spyOn(document, 'getElementById')
+    mockMutationObserver = vi.fn(function () {
+      return {
+        observe: vi.fn(),
+        disconnect: vi.fn(),
+      }
+    })
     ;(global as any).MutationObserver = mockMutationObserver
-    mockWarn = jest.spyOn(console, 'warn').mockImplementation()
+    mockWarn = vi.spyOn(console, 'warn').mockImplementation(() => {})
   })
 
-  afterEach(() => {
-    jest.clearAllMocks()
+  // init() renders through React's scheduler (setImmediate in Node). Drain that
+  // work after each test so it never runs after jsdom has been torn down.
+  afterEach(async () => {
+    for (let i = 0; i < 10; i++) await new Promise(resolve => setTimeout(resolve, 0))
+    vi.clearAllMocks()
   })
 
   describe('init function', () => {
     it('should initialize and observe valid container by ID', () => {
       const mockContainer = document.createElement('div')
       mockContainer.id = 'valid-container'
-      mockContainer.getAttribute = jest.fn().mockReturnValue('valid-signature')
+      mockContainer.getAttribute = vi.fn().mockReturnValue('valid-signature')
       mockGetElementById.mockReturnValue(mockContainer)
 
       init({ container: 'valid-container' })
@@ -46,8 +52,8 @@ describe('Widget Module', () => {
       const mockContainer2 = document.createElement('div')
       mockContainer1.id = 'container-1'
       mockContainer2.id = 'container-2'
-      mockContainer1.getAttribute = jest.fn().mockReturnValue('signature-1')
-      mockContainer2.getAttribute = jest.fn().mockReturnValue('signature-2')
+      mockContainer1.getAttribute = vi.fn().mockReturnValue('signature-1')
+      mockContainer2.getAttribute = vi.fn().mockReturnValue('signature-2')
 
       mockGetElementById.mockImplementation(id => {
         if (id === 'container-1') return mockContainer1
@@ -64,7 +70,7 @@ describe('Widget Module', () => {
 
     it('should handle HTMLElement container input', () => {
       const mockContainer = document.createElement('div')
-      mockContainer.getAttribute = jest.fn().mockReturnValue('mock-signature')
+      mockContainer.getAttribute = vi.fn().mockReturnValue('mock-signature')
 
       init({ container: mockContainer })
 
@@ -83,14 +89,16 @@ describe('Widget Module', () => {
     it('should render and observe signature attribute changes', () => {
       const mockContainer = document.createElement('div')
       mockContainer.id = 'observed-container'
-      mockContainer.getAttribute = jest.fn().mockReturnValue('observed-signature')
+      mockContainer.getAttribute = vi.fn().mockReturnValue('observed-signature')
 
       const mockObserverInstance = {
-        observe: jest.fn(),
-        disconnect: jest.fn(),
+        observe: vi.fn(),
+        disconnect: vi.fn(),
       }
 
-      mockMutationObserver.mockReturnValue(mockObserverInstance)
+      mockMutationObserver.mockImplementation(function () {
+        return mockObserverInstance
+      })
       mockGetElementById.mockReturnValue(mockContainer)
 
       init({ container: 'observed-container' })
@@ -113,7 +121,7 @@ describe('Widget Module', () => {
 
     it('should warn if no signature is provided', () => {
       const mockContainer = document.createElement('div')
-      mockContainer.getAttribute = jest.fn().mockReturnValue(null)
+      mockContainer.getAttribute = vi.fn().mockReturnValue(null)
 
       mockGetElementById.mockReturnValue(mockContainer)
 
@@ -125,27 +133,29 @@ describe('Widget Module', () => {
 
   describe('cleanup function', () => {
     let mockContainer: HTMLElement
-    let mockMutationObserver: jest.Mock
+    let mockMutationObserver: Mock
     let mockObserverInstance: any
 
     beforeEach(() => {
       mockContainer = document.createElement('div')
       mockContainer.id = 'orbital-container'
-      mockContainer.getAttribute = jest.fn().mockReturnValue('mock-signature')
-      jest.spyOn(document, 'getElementById').mockReturnValue(mockContainer)
+      mockContainer.getAttribute = vi.fn().mockReturnValue('mock-signature')
+      vi.spyOn(document, 'getElementById').mockReturnValue(mockContainer)
 
       mockObserverInstance = {
-        observe: jest.fn(),
-        disconnect: jest.fn(),
+        observe: vi.fn(),
+        disconnect: vi.fn(),
       }
-      mockMutationObserver = jest.fn(() => mockObserverInstance)
+      mockMutationObserver = vi.fn(function () {
+        return mockObserverInstance
+      })
       ;(global as any).MutationObserver = mockMutationObserver
 
-      jest.resetModules()
+      vi.resetModules()
     })
 
     afterEach(() => {
-      jest.clearAllMocks()
+      vi.clearAllMocks()
     })
 
     it('should disconnect the observer and remove the container from the map after init', () => {
