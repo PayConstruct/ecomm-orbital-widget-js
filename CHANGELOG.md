@@ -1,3 +1,15 @@
+# v5.0.1 (Wed Aug 27 2025)
+
+#### 🐛 Bug Fix
+
+- build: update packges and node version [#87](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/87) ([@NeilzonC](https://github.com/NeilzonC))
+
+#### Authors: 1
+
+- Neilzon ([@NeilzonC](https://github.com/NeilzonC))
+
+---
+
 # v5.0.0 (Mon Jan 13 2025)
 
 #### 💥 Breaking Change
