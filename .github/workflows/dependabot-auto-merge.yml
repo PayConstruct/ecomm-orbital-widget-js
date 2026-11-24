@@ -24,7 +24,7 @@ jobs:
     with:
       branches: "dev"
       critical-reviewers-teams: "crypto-team"
-      enable-auto-merge: true
+      enable-auto-merge: false
       enable-slack-notifications: true
     secrets:
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
