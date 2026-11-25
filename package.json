@@ -1,5 +1,5 @@
 {
-  "name": "@payperform/widget",
+  "name": "@payconstruct/widget",
   "version": "5.0.0",
   "description": "Orbital Widgets for fast and seamless payment processing",
   "main": "lib/index.js",
@@ -80,9 +80,12 @@
     "dist",
     "lib"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PayConstruct/ecomm-orbital-widget-js.git"
+  },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
+    "registry": "https://npm.pkg.github.com/"
   },
   "resolutions": {
     "cross-spawn": "^7.0.6",
