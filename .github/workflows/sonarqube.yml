@@ -1,0 +1,18 @@
+name: sonarqube
+
+on:
+  push:
+    branches:
+      - dev
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  sonarqube:
+    uses: PayConstruct/github-actions-workflows/.github/workflows/sonarqube.yml@eec085fe21b140ae5286ef879026db228c44d15f # v6.4.0
+    with:
+      aws-region: eu-west-1
+      full-repo-name: ${{ github.repository }}
+    secrets: inherit
