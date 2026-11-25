@@ -20,9 +20,6 @@ on:
       org_npmrc:
         required: true
         description: .npmrc secret for GitHub Packages authentication
-      protected_branch_reviewer_token:
-        required: true
-        description: Protected branch reviewer token
       npm_token:
         required: true
         description: NPM registry publish token
@@ -86,7 +83,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.deploy_token }}
           NODE_AUTH_TOKEN: ${{ secrets.deploy_token }}
           NPM_TOKEN: ${{ secrets.npm_token }}
-          PROTECTED_BRANCH_REVIEWER_TOKEN: ${{ secrets.protected_branch_reviewer_token }}
         run: |
           if [ "${{ inputs.branch_name }}" == "dev" ]; then
             yarn auto canary --force
