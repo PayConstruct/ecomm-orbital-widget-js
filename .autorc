@@ -1,13 +1,5 @@
 {
   "versionBranches": "version-",
   "baseBranch": "main",
-  "plugins": [
-    "npm",
-    [
-      "protected-branch",
-      {
-        "releaseTemporaryBranchPrefix": "protected-release-"
-      }
-    ]
-  ]
+  "plugins": ["npm"]
 }
