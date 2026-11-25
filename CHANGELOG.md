@@ -1,3 +1,25 @@
+# v5.0.2 (Wed Nov 25 2026)
+
+#### 🐛 Bug Fix
+
+- fix: release 5.0.2 from dev (dependency fixes, publish to GitHub Packages) [#130](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/130) ([@konkonstantinidis](https://github.com/konkonstantinidis) [@aborsenko](https://github.com/aborsenko) [@k-karanasos](https://github.com/k-karanasos))
+- chore(ci): pin SonarQube workflow to v6.4.0 [#131](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/131) ([@k-karanasos](https://github.com/k-karanasos))
+- chore(ci): publish as @payconstruct/widget to GitHub Packages [#129](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/129) ([@k-karanasos](https://github.com/k-karanasos))
+- chore(ci): release with the Orbital bot token and drop protected-branch plugin [#128](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/128) ([@k-karanasos](https://github.com/k-karanasos))
+- fix: resolve dependency vulnerabilities [#125](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/125) ([@aborsenko](https://github.com/aborsenko))
+- ci: disable dependabot auto-merge on dev [#124](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/124) ([@aborsenko](https://github.com/aborsenko))
+- fix(PMCR-4698): upgrade dependencies to resolve critical and high alerts [#123](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/123) ([@aborsenko](https://github.com/aborsenko))
+- ci: add Dependabot automation and SonarQube workflows [#100](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/100) ([@konkonstantinidis](https://github.com/konkonstantinidis))
+- chore: PMCR-3656 update critical vunerabilities [#91](https://github.com/PayConstruct/ecomm-orbital-widget-js/pull/91) ([@aborsenko](https://github.com/aborsenko))
+
+#### Authors: 3
+
+- [@aborsenko](https://github.com/aborsenko)
+- Konstantinos Konstantinidis ([@konkonstantinidis](https://github.com/konkonstantinidis))
+- Kostas ([@k-karanasos](https://github.com/k-karanasos))
+
+---
+
 # v5.0.1 (Wed Aug 27 2025)
 
 #### 🐛 Bug Fix
